@@ -166,15 +166,6 @@
           ) %>
         <% end %>
       </div>
-
-      <div class=" w-[40px] h-[40px]  ">
-        <%= img_tag(
-          EmployeeManagementSystem.ProfilePhoto.url({@current_user.photo, {@current_user}},
-            signed: true
-          ),
-          class: " w-[40px] h-[40px] object-cover  rounded-full "
-        ) %>
-      </div>
     </div>
   </div>
   <div class="w-4/12 bg-[#303841] text-[#EFF2F7] flex flex-col gap-8  h-[100vh] overflow-y-scroll py-8  px-4">

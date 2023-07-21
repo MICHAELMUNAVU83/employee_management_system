@@ -78,7 +78,7 @@
 <% end %> --%>
 
 <div class="flex justify-between poppins-regular h-[100vh]">
-  <div class="md:w-1/12 w-2/12 bg-[#37404A] poppins-regular  h-[100vh] flex flex-col items-center justify-between py-4 ">
+  <div class="md:w-1/12 w-2/12 bg-[#37404A] poppins-regular  h-[100vh] flex flex-col items-center justify-between py-8 ">
     <div>
       <%= live_redirect(to: Routes.page_index_path(@socket, :index)) do %>
         <%= Heroicons.icon("chat-bubble-left-right",
@@ -109,15 +109,27 @@
         <% end %>
       </div>
 
-      <div class="hover:bg-[#3E4A56] transition-all duration-500 ease-in-out group p-4 cursor-pointer rounded-xl">
-        <%= live_redirect(to: Routes.task_index_path(@socket, :index)) do %>
-          <%= Heroicons.icon("briefcase",
-            type: "solid",
-            class:
-              "h-4 md:h-8  text-[#A6B0CF] group-hover:text-[#7269EF] transition-all duration-500 ease-in-out rounded-xl w-4 md:w-8"
-          ) %>
-        <% end %>
-      </div>
+      <%= if @current_user.role == "manager" do %>
+        <div class="hover:bg-[#3E4A56] transition-all duration-500 ease-in-out group p-4 cursor-pointer rounded-xl">
+          <%= live_redirect(to: Routes.task_index_path(@socket, :index)) do %>
+            <%= Heroicons.icon("briefcase",
+              type: "solid",
+              class:
+                "h-4 md:h-8  text-[#A6B0CF] group-hover:text-[#7269EF] transition-all duration-500 ease-in-out rounded-xl w-4 md:w-8"
+            ) %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="hover:bg-[#3E4A56] transition-all duration-500 ease-in-out group p-4 cursor-pointer rounded-xl">
+          <%= live_redirect(to: Routes.task_mytasks_path(@socket, :show, @current_user))  do %>
+            <%= Heroicons.icon("rectangle-stack",
+              type: "solid",
+              class:
+                "h-4 md:h-8  text-[#A6B0CF] group-hover:text-[#7269EF] transition-all duration-500 ease-in-out rounded-xl w-4 md:w-8"
+            ) %>
+          <% end %>
+        </div>
+      <% end %>
 
       <div class="hover:bg-[#3E4A56] transition-all duration-500 ease-in-out group p-4 cursor-pointer rounded-xl">
         <%= live_redirect(to: Routes.event_index_path(@socket, :index)) do %>
@@ -129,25 +141,17 @@
         <% end %>
       </div>
 
-      <div class="hover:bg-[#3E4A56] transition-all duration-500 ease-in-out group p-4 cursor-pointer rounded-xl">
-        <%= live_redirect(to: Routes.task_mytasks_path(@socket, :show, @current_user))  do %>
-          <%= Heroicons.icon("rectangle-stack",
-            type: "solid",
-            class:
-              "h-4 md:h-8  text-[#A6B0CF] group-hover:text-[#7269EF] transition-all duration-500 ease-in-out rounded-xl w-4 md:w-8"
-          ) %>
-        <% end %>
-      </div>
-
-      <div class="hover:bg-[#3E4A56] transition-all duration-500 ease-in-out group p-4 cursor-pointer rounded-xl">
-        <%= live_redirect(to: Routes.chat_index_path(@socket, :newgroup)) do %>
-          <%= Heroicons.icon("plus",
-            type: "solid",
-            class:
-              "h-4 md:h-8  text-[#A6B0CF] group-hover:text-[#7269EF] transition-all duration-500 ease-in-out rounded-xl w-4 md:w-8"
-          ) %>
-        <% end %>
-      </div>
+      <%= if @current_user.role == "manager" do %>
+        <div class="hover:bg-[#3E4A56] transition-all duration-500 ease-in-out group p-4 cursor-pointer rounded-xl">
+          <%= live_redirect(to: Routes.chat_index_path(@socket, :newgroup)) do %>
+            <%= Heroicons.icon("plus",
+              type: "solid",
+              class:
+                "h-4 md:h-8  text-[#A6B0CF] group-hover:text-[#7269EF] transition-all duration-500 ease-in-out rounded-xl w-4 md:w-8"
+            ) %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
 
     <div class="flex flex-col justify-center items-center gap-4">
