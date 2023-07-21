@@ -134,18 +134,16 @@
           <%= @current_user.first_name <> " " <> @current_user.last_name %>
         </p>
       </div>
-
-      <div class="flex text-white items-center gap-2">
-        <%= live_patch  to: Routes.event_index_path(@socket, :new) do %>
-          <%= Heroicons.icon("plus",
-            type: "solid",
-            class: "h-8 text-[#7269EF] w-8"
-          ) %>
-        <% end %>
-        <p>
-          profile
-        </p>
-      </div>
+      <%= if @current_user.role == "manager" do %>
+        <div class="flex text-white items-center gap-2">
+          <%= live_patch  to: Routes.event_index_path(@socket, :new) do %>
+            <%= Heroicons.icon("plus",
+              type: "solid",
+              class: "h-8 text-[#7269EF] w-8"
+            ) %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
     <div class="h-[90%] overflow-y-scroll  md:grid grid-cols-2 gap-8 p-4">
       <%= for event <- @events do %>
@@ -169,26 +167,28 @@
                 <div class="text-[#EFF2F7] break-words text-sm">
                   <%= event.description %>
                 </div>
-                <div class="flex gap-2 items-end mt-4 ">
-                  <%= live_patch(to: Routes.event_index_path(@socket, :edit, event)) do %>
-                    <%= Heroicons.icon("pencil",
-                      type: "solid",
-                      class: "h-6 text-white w-6"
-                    ) %>
-                  <% end %>
+                <%= if @current_user.role == "manager" do %>
+                  <div class="flex gap-2 items-end mt-4 ">
+                    <%= live_patch(to: Routes.event_index_path(@socket, :edit, event)) do %>
+                      <%= Heroicons.icon("pencil",
+                        type: "solid",
+                        class: "h-6 text-white w-6"
+                      ) %>
+                    <% end %>
 
-                  <%= link(
+                    <%= link(
                     to: "#",
                     phx_click: "delete",
                     phx_value_id: event.id,
                     data: [confirm: "Are you sure?"]
                   ) do %>
-                    <%= Heroicons.icon("trash",
-                      type: "solid",
-                      class: "h-6 text-white w-6"
-                    ) %>
-                  <% end %>
-                </div>
+                      <%= Heroicons.icon("trash",
+                        type: "solid",
+                        class: "h-6 text-white w-6"
+                      ) %>
+                    <% end %>
+                  </div>
+                <% end %>
               </div>
               <div>
                 <img src={event.image} class="w-[150px] h-[150px] rounded-md object-cover " />

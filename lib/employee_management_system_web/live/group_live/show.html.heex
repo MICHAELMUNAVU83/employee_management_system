@@ -249,32 +249,30 @@
           <%= @group.name %>
         </p>
       </div>
-
-      <div class="flex text-white items-center gap-2">
-        <p>
-          text
-        </p>
-        <p>
-          <%= live_patch(to: Routes.group_show_path(@socket, :edit, @group)) do %>
-            <%= Heroicons.icon("pencil-square",
-              type: "solid",
-              class: "h-6 text-white w-6"
-            ) %>
-          <% end %>
-        </p>
-        <%= if @all_users != [] do %>
-          <%= live_redirect(
+      <%= if @current_user.role == "manager" do %>
+        <div class="flex text-white items-center gap-2">
+          <p>
+            <%= live_patch(to: Routes.group_show_path(@socket, :edit, @group)) do %>
+              <%= Heroicons.icon("pencil-square",
+                type: "solid",
+                class: "h-6 text-white w-6"
+              ) %>
+            <% end %>
+          </p>
+          <%= if @all_users != [] do %>
+            <%= live_redirect(
             to: Routes.group_show_path(@socket, :addgroupmember, @group)
           )  do %>
-            <%= Heroicons.icon("user-plus",
-              type: "solid",
-              class: "h-6 text-white w-6"
-            ) %>
+              <%= Heroicons.icon("user-plus",
+                type: "solid",
+                class: "h-6 text-white w-6"
+              ) %>
+            <% end %>
+          <% else %>
+            <span>all are present</span>
           <% end %>
-        <% else %>
-          <span>all are present</span>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
     <div class="bg-[#262E35] h-[80%] flex items-end p-4 overflow-x-scroll w-[100%]">
       <div class="flex flex-col w-[100%] gap-2">
