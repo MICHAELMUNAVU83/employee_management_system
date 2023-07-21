@@ -9,24 +9,10 @@ defmodule EmployeeManagementSystemWeb.AdminPanelLive.Index do
     user = Users.get_user!(current_user.id)
     IO.inspect(user)
 
-    # case Users.update_user(user, %{first_name: "John"}) do
-    #   {:ok, user} ->
-    #     IO.inspect("User updated successfully")
-
-    #     {:ok,
-    #      socket
-    #      |> assign(:page_title, "Listing Users")
-    #      |> assign(:current_user, user)}
-
-    #   {:error, _changeset} ->
-    #     IO.inspect("User not updated successfully")
-    #     {:error, %{reason: "User not found"}}
-    # end
-
     {:ok,
      socket
      |> assign(:page_title, "Listing Events")
-     |> assign(:users, Users.list_users())
+     |> assign(:users, Users.list_users_except_current_user(user.id))
      |> assign(:current_user, user)}
   end
 end

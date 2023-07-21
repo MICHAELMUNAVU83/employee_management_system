@@ -60,7 +60,9 @@
             <%= label(f, :photo, class: "text-[#eff2f7] poppins-regular") %>
             <%= file_input(f, :photo,
               class:
-                "w-[100%] h-[45px] bg-[#eff2f7] p-2 poppins-regular text-[#37404A] border border-transparent   focus:ring-0 border-none"
+                "w-[100%] h-[45px] bg-[#eff2f7] p-2 poppins-regular text-[#37404A] border border-transparent   focus:ring-0 border-none",
+              accept: ".jpg, .jpeg, .png",
+              required: true
             ) %>
             <p class="pt-5">
               <%= error_tag(f, :photo) %>

@@ -125,12 +125,23 @@
       </div>
 
       <div class="flex text-white items-center gap-2">
-        <%= link("Promote to Manager ",
-          to: "#",
-          phx_click: "promote_to_manager",
-          phx_value_id: @user.id,
-          data: [confirm: "Are you sure?"]
-        ) %>
+        <%= if @user.role != "manager" do %>
+          <%= link("Promote to Manager ",
+            to: "#",
+            phx_click: "promote_to_manager",
+            phx_value_id: @user.id,
+            class: "bg-[#7269EF] text-white p-4",
+            data: [confirm: "Are you sure?"]
+          ) %>
+        <% else %>
+          <%= link("Demote to Employee ",
+            to: "#",
+            phx_click: "demote_to_employee",
+            phx_value_id: @user.id,
+            class: "bg-white text-[#7269EF] p-4",
+            data: [confirm: "Are you sure?"]
+          ) %>
+        <% end %>
       </div>
     </div>
 
@@ -181,7 +192,7 @@
 
           <div class="flex text-white gap-1 ">
             <p class="font-bold text-[#EFF2F7]">
-              Position
+              Position:
             </p>
             <p>
               <%= @user.role %>
