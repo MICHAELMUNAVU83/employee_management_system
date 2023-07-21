@@ -1,0 +1,52 @@
+<%!-- hbnjmk,l <%= live_redirect("Chats", to: Routes.chat_index_path(@socket, :index)) %>
+
+<%= live_redirect("Tasks", to: Routes.task_index_path(@socket, :index)) %>
+
+<ul>
+  <%= if @current_user != "" do %>
+    <li><%= link("Settings", to: Routes.user_settings_path(@socket, :edit)) %></li>
+    <li>
+      <%= link("Log out", to: Routes.user_session_path(@socket, :delete), method: :delete) %>
+    </li>
+  <% else %>
+    <li><%= link("Register", to: Routes.user_registration_path(@socket, :new)) %></li>
+    <li><%= link("Log in", to: Routes.user_session_path(@socket, :new)) %></li>
+  <% end %>
+</ul> --%>
+
+<div class="h-[100vh] w-[100%] bg-gradient-to-b from-[#37404A]  via-[#7269EF]  to-[#262E35]">
+  <div class="bg-black/50 h-[100vh] py-8 flex md:justify-between flex-col items-center w-[100%]">
+    <div class="flex justify-center items-center flex-col gap-1">
+      <p class="text-[#7269EF] text-center md:text-3xl text-xl poppins-regular">
+        Employee Management System
+      </p>
+
+      <p class="md:w-[60%] w-[90%] md:text-sm text-xs poppins-regular mx-auto text-center text-[#EFF2F7] ">
+        A complete solution for managing your employees and their tasks.
+        They can chat with each other  , managers can create different groups for different projects allowing for productive communication.
+      </p>
+
+      <%= if @current_user != "" do %>
+        <%= live_redirect( to: Routes.chat_index_path(@socket, :index)) do %>
+          <button class="px-4 py-2 my-2 bg-[#EFF2F7] text-[#37404A] hover:scale-105 transition-all ease-in-out duration-500 cursor-pointer poppins-regular">
+            Get Started
+          </button>
+        <% end %>
+      <% else %>
+        <%= link(to: Routes.user_session_path(@socket, :new)) do %>
+          <button class="px-4 py-2 my-2 bg-[#EFF2F7] text-[#37404A] hover:scale-105 transition-all ease-in-out duration-500 cursor-pointer poppins-regular">
+            Get Started
+          </button>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="md:w-[70%] w-[90%] bg-[#303841] mt-24 md:mt-0  p-4 rounded-xl mx-auto opacity-75 md:h-[70vh]">
+      <img
+        src="/images/landing.png"
+        alt="landing"
+        class="w-[100%] h-[100%] object-contain rounded-xl"
+      />
+    </div>
+  </div>
+</div>
