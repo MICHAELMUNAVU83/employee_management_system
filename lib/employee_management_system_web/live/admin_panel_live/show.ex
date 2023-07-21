@@ -7,11 +7,20 @@ defmodule EmployeeManagementSystemWeb.AdminPanelLive.Show do
   def mount(_params, session, socket) do
     current_user = Users.get_user_by_session_token(session["user_token"])
 
+    managers =
+      Users.list_users_except_current_user(current_user.id)
+      |> Enum.filter(fn user -> user.role == "manager" end)
+
+    employees =
+      Users.list_users_except_current_user(current_user.id)
+      |> Enum.filter(fn user -> user.role == "employee" end)
+
     {:ok,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
      |> assign(:current_user, current_user)
-     |> assign(:users, Users.list_users_except_current_user(current_user.id))}
+     |> assign(:managers, managers)
+     |> assign(:employees, employees)}
   end
 
   @impl true
