@@ -38,10 +38,19 @@ defmodule EmployeeManagementSystemWeb.AdminPanelLive.Show do
     {:ok, user} = Users.update_user(user, %{role: "manager"})
     IO.inspect(user)
 
+    managers =
+      Users.list_users_except_current_user(socket.assigns.current_user.id)
+      |> Enum.filter(fn user -> user.role == "manager" end)
+
+    employees =
+      Users.list_users_except_current_user(socket.assigns.current_user.id)
+      |> Enum.filter(fn user -> user.role == "employee" end)
+
     {:noreply,
      socket
      |> assign(:user, user)
-     |> assign(:users, Users.list_users_except_current_user(socket.assigns.current_user.id))
+     |> assign(:managers, managers)
+     |> assign(:employees, employees)
      |> put_flash(:info, "User promoted to manager successfully")}
   end
 
@@ -50,12 +59,20 @@ defmodule EmployeeManagementSystemWeb.AdminPanelLive.Show do
 
     {:ok, user} = Users.update_user(user, %{role: "employee"})
     IO.inspect(user)
-    users = Users.list_users_except_current_user(socket.assigns.current_user.id)
+
+    managers =
+      Users.list_users_except_current_user(socket.assigns.current_user.id)
+      |> Enum.filter(fn user -> user.role == "manager" end)
+
+    employees =
+      Users.list_users_except_current_user(socket.assigns.current_user.id)
+      |> Enum.filter(fn user -> user.role == "employee" end)
 
     {:noreply,
      socket
      |> assign(:user, user)
-     |> assign(:users, users)
+     |> assign(:managers, managers)
+     |> assign(:employees, employees)
      |> put_flash(:info, "User promoted to manager successfully")}
   end
 

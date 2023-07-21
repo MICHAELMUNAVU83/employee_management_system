@@ -15,6 +15,8 @@ defmodule EmployeeManagementSystemWeb.ChatLive.Show do
     user = Users.get_user_by_session_token(session["user_token"])
     search_changeset = Messages.change_message(%Message{})
 
+    IO.inspect(Users.list_users())
+
     image_changeset = Messages.change_message(%Message{})
 
     first_4_users = Users.list_users_except_current_user(user.id) |> Enum.take(4)

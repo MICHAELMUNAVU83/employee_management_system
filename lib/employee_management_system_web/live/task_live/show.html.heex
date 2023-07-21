@@ -86,7 +86,7 @@
 </table> --%>
 
 <div class="flex justify-between poppins-regular h-[100vh]">
-  <div class="w-1/12 bg-[#37404A] poppins-regular  h-[100vh] flex flex-col items-center justify-between py-8 ">
+  <div class="md:w-1/12 w-2/12 bg-[#37404A] poppins-regular  h-[100vh] flex flex-col items-center justify-between py-8 ">
     <div>
       <%= live_redirect(to: Routes.page_index_path(@socket, :index)) do %>
         <%= Heroicons.icon("chat-bubble-left-right",
@@ -168,7 +168,7 @@
       </div>
     </div>
   </div>
-  <div class="w-4/12 bg-[#303841] text-[#EFF2F7] flex flex-col gap-8  h-[100vh] overflow-y-scroll py-8  px-4">
+  <div class="w-4/12 bg-[#303841] hidden  text-[#EFF2F7] md:flex flex-col gap-8  h-[100vh] overflow-y-scroll py-8  px-4">
     <p class="text-2xl poppins-bold font-bold">
       <%= @current_user.department %> Department
     </p>
@@ -246,7 +246,7 @@
       <% end %>
     </div>
   </div>
-  <div class="w-7/12 bg-[#262E35]  overflow-y-scroll h-[100vh]  flex flex-col ">
+  <div class="md:w-7/12 w-10/12 bg-[#262E35]  overflow-y-scroll h-[100vh]  flex flex-col ">
     <div class="bg-[#262E35] border-gray-200 border-b-2 flex justify-between items-center  p-4  h-[10%] w-[100%]">
       <div class="flex gap-2 items-center">
         <div class=" w-[40px] h-[40px]  ">
@@ -271,16 +271,13 @@
             ) %>
           <% end %>
         </p>
-        <p>
-          profile
-        </p>
       </div>
     </div>
     <div class="bg-[#262E35] h-[90%] flex items-start overflow-y-scroll  p-4  w-[100%]">
       <div class="flex flex-col w-[95%] mx-auto   gap-4">
         <%= for task <- @tasks do %>
           <div class=" p-4 rounded-md bg-[#303841]">
-            <div class="w-[100%] bg-[#37404A] flex poppins-regular flex-col justify-between gap-1 p-2 shadow-md hover:shadow-gray-300   cursor-pointer transition-all ease-in-out duration-500 h-[150px]">
+            <div class="w-[100%] bg-[#37404A] flex poppins-regular flex-col justify-between gap-1 p-2 shadow-md hover:shadow-gray-300   cursor-pointer transition-all ease-in-out duration-500 md:h-[150px]">
               <div class="flex flex-col gap-1 w-[100%]">
                 <div class="flex justify-between items-center">
                   <p class="text-[#7269EF] uppercase text-xl">
@@ -319,8 +316,8 @@
                 </div>
               </div>
 
-              <div class="flex justify-between w-[100%]">
-                <div class="flex flex-row gap-4">
+              <div class="flex flex-col md:flex-row justify-between w-[100%]">
+                <div class="flex md:flex-row flex-col gap-4">
                   <div class="flex flex-row items-center">
                     <p class="py-2 text-[#EFF2F7] pr-2">
                       Due date:
@@ -347,7 +344,7 @@
                   </div>
                 </div>
 
-                <div class="flex justify-center items-center">
+                <div class="flex md:justify-center justify-start my-8 md:mt-0 items-center">
                   <%= if task.status == "pending" do %>
                     <%= link(
               to: "#",
@@ -380,7 +377,7 @@
               </p>
             <% end %>
 
-            <div class="grid grid-cols-2 px-4  gap-8">
+            <div class="grid md:grid-cols-2 px-4  gap-8">
               <%= for review <- task.reviews do %>
                 <div class="bg-white cursor-pointer  hover:scale-105 duration-500 ease-in-out transition-all  h-[80px] p-2 flex justify-between text-sm w-[100%]">
                   <div class="flex flex-col justify-between">
