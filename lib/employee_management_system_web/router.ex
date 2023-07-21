@@ -74,9 +74,6 @@ defmodule EmployeeManagementSystemWeb.Router do
     live("/events/:id", EventLive.Show, :show)
     live("/events/:id/show/edit", EventLive.Show, :edit)
 
-    live("/adminpanel", AdminPanelLive.Index, :index)
-    live("/adminpanel/:id", AdminPanelLive.Show, :show)
-
     # live "/reviews", ReviewLive.Index, :index
     # live "/reviews/new", ReviewLive.Index, :new
     # live "/reviews/:id/edit", ReviewLive.Index, :edit
@@ -85,6 +82,13 @@ defmodule EmployeeManagementSystemWeb.Router do
     # live "/reviews/:id/show/edit", ReviewLive.Show, :edit
 
     # live "/tasks/:id/show/edit", TaskLive.Show, :edit
+  end
+
+  scope "/", EmployeeManagementSystemWeb do
+    pipe_through([:browser, :require_authenticated_admin])
+
+    live("/adminpanel", AdminPanelLive.Index, :index)
+    live("/adminpanel/:id", AdminPanelLive.Show, :show)
   end
 
   # Other scopes may use custom stacks.

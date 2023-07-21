@@ -15,7 +15,7 @@ defmodule EmployeeManagementSystemWeb.GroupLive.Index do
     search_changeset = Groups.change_group(%Group{})
 
     groups =
-      if user.email == "michaelmunavu83@gmail.com" do
+      if user.email == "admin@gmail.com" do
         all_groups
       else
         groups_for_user
