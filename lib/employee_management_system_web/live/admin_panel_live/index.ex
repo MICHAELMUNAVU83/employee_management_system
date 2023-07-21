@@ -9,10 +9,19 @@ defmodule EmployeeManagementSystemWeb.AdminPanelLive.Index do
     user = Users.get_user!(current_user.id)
     IO.inspect(user)
 
+    managers =
+      Users.list_users_except_current_user(current_user.id)
+      |> Enum.filter(fn user -> user.role == "manager" end)
+
+    employees =
+      Users.list_users_except_current_user(current_user.id)
+      |> Enum.filter(fn user -> user.role == "employee" end)
+
     {:ok,
      socket
      |> assign(:page_title, "Listing Events")
-     |> assign(:users, Users.list_users_except_current_user(user.id))
+     |> assign(:managers, managers)
+     |> assign(:employees, employees)
      |> assign(:current_user, user)}
   end
 end
