@@ -27,6 +27,12 @@ defmodule EmployeeManagementSystem.Users do
     Repo.all(User)
   end
 
+  def update_user(%User{} = user, attrs) do
+    user
+    |> User.changeset(attrs)
+    |> Repo.update()
+  end
+
   def get_user_search_results(current_user, search_term) do
     Repo.all(
       from(u in User,

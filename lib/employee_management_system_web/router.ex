@@ -67,12 +67,15 @@ defmodule EmployeeManagementSystemWeb.Router do
     live("/tasks/:id/:task_id/newreview", TaskLive.Show, :newreview)
     live("/tasks/:id/:task_id/:review_id/edit", TaskLive.Show, :editreview)
 
-    live "/events", EventLive.Index, :index
-    live "/events/new", EventLive.Index, :new
-    live "/events/:id/edit", EventLive.Index, :edit
+    live("/events", EventLive.Index, :index)
+    live("/events/new", EventLive.Index, :new)
+    live("/events/:id/edit", EventLive.Index, :edit)
 
-    live "/events/:id", EventLive.Show, :show
-    live "/events/:id/show/edit", EventLive.Show, :edit
+    live("/events/:id", EventLive.Show, :show)
+    live("/events/:id/show/edit", EventLive.Show, :edit)
+
+    live("/adminpanel", AdminPanelLive.Index, :index)
+    live("/adminpanel/:id", AdminPanelLive.Show, :show)
 
     # live "/reviews", ReviewLive.Index, :index
     # live "/reviews/new", ReviewLive.Index, :new

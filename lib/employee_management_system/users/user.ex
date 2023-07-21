@@ -20,6 +20,8 @@ defmodule EmployeeManagementSystem.Users.User do
   @doc """
   A user changeset for registration.
 
+
+
   It is important to validate the length of both email and password.
   Otherwise databases may truncate the email without warnings, which
   could lead to unpredictable or insecure behaviour. Long passwords may
@@ -34,6 +36,13 @@ defmodule EmployeeManagementSystem.Users.User do
       validations on a LiveView form), this option can be set to `false`.
       Defaults to `true`.
   """
+
+  def changeset(user, attrs) do
+    user
+    |> cast(attrs, [:email, :password, :department, :photo, :first_name, :last_name, :role])
+    |> validate_required([:department, :photo, :first_name, :last_name, :role])
+  end
+
   def registration_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:email, :password, :department, :photo, :first_name, :last_name, :role])
