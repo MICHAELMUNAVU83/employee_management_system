@@ -10,6 +10,7 @@ defmodule EmployeeManagementSystem.Users.User do
     field(:department, :string)
     field(:first_name, :string)
     field(:last_name, :string)
+    field(:role, :string, default: "employee")
     field(:photo, EmployeeManagementSystem.ProfilePhoto.Type)
     has_many(:tasks, EmployeeManagementSystem.Tasks.Task)
 
@@ -35,9 +36,9 @@ defmodule EmployeeManagementSystem.Users.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password, :department, :photo, :first_name, :last_name])
+    |> cast(attrs, [:email, :password, :department, :photo, :first_name, :last_name, :role])
     |> validate_email()
-    |> validate_required([:department, :photo, :first_name, :last_name])
+    |> validate_required([:department, :photo, :first_name, :last_name, :role])
     |> validate_password(opts)
   end
 

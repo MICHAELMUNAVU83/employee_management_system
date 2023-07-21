@@ -12,6 +12,7 @@ defmodule EmployeeManagementSystem.Repo.Migrations.CreateUsersAuthTables do
       add(:photo, :string)
       add(:first_name, :string)
       add(:last_name, :string)
+      add(:role, :string, default: "employee")
       timestamps()
     end
 
