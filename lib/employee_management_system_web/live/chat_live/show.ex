@@ -19,8 +19,14 @@ defmodule EmployeeManagementSystemWeb.ChatLive.Show do
 
     image_changeset = Messages.change_message(%Message{})
 
-    first_4_users = Users.list_users_except_current_user(user.id) |> Enum.take(4)
-    users = Users.list_users_except_current_user(user.id)
+    first_4_users =
+      Users.list_users_except_current_user(user.id)
+      |> Enum.take(4)
+      |> Enum.filter(fn user -> user.email != "admin@gmail.com" end)
+
+    users =
+      Users.list_users_except_current_user(user.id)
+      |> Enum.filter(fn user -> user.email != "admin@gmail.com" end)
 
     {:ok,
      socket

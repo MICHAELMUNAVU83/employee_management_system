@@ -11,7 +11,10 @@ defmodule EmployeeManagementSystemWeb.ChatLive.Index do
     if session["user_token"] != nil do
       user = Users.get_user_by_session_token(session["user_token"])
 
-      first_4_users = Users.list_users_except_current_user(user.id) |> Enum.take(4)
+      first_4_users =
+        Users.list_users_except_current_user(user.id)
+        |> Enum.take(4)
+        |> Enum.filter(fn user -> user.email != "admin@gmail.com" end)
 
       groups = Groups.list_groups_for_a_member(user.id)
       all_groups_for_a_department = Groups.list_groups_for_a_department(user.department)
@@ -27,7 +30,11 @@ defmodule EmployeeManagementSystemWeb.ChatLive.Index do
        |> assign(:page_title, "Listing Chats")
        |> assign(:first_4_users, first_4_users)
        |> assign(:search_changeset, search_changeset)
-       |> assign(:users, Users.list_users_except_current_user(user.id))}
+       |> assign(
+         :users,
+         Users.list_users_except_current_user(user.id)
+         |> Enum.filter(fn user -> user.email != "admin@gmail.com" end)
+       )}
     else
       {:ok, socket}
     end

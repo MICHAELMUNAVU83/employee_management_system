@@ -30,6 +30,7 @@ defmodule EmployeeManagementSystemWeb.GroupLive.Show do
         id,
         socket.assigns.current_user.id
       )
+      |> Enum.filter(fn user -> user.email != "admin@gmail.com" end)
       |> Enum.map(fn user -> {user.email, user.id} end)
 
     all_general_users =
@@ -37,6 +38,7 @@ defmodule EmployeeManagementSystemWeb.GroupLive.Show do
         id,
         socket.assigns.current_user.id
       )
+      |> Enum.filter(fn user -> user.email != "admin@gmail.com" end)
       |> Enum.map(fn user -> {user.email, user.id} end)
 
     group_messages = GroupMessages.list_group_messages_for_a_group(id)
@@ -44,14 +46,14 @@ defmodule EmployeeManagementSystemWeb.GroupLive.Show do
     all_groups = Groups.list_groups()
 
     groups =
-      if socket.assigns.current_user.email == "michaelmunavu83@gmail.com" do
+      if socket.assigns.current_user.email == "admin@gmail.com" do
         all_groups
       else
         groups_for_user
       end
 
     all_users =
-      if socket.assigns.current_user.email == "michaelmunavu83@gmail.com" do
+      if socket.assigns.current_user.email == "admin@gmail.com" do
         all_general_users
       else
         all_department_users
