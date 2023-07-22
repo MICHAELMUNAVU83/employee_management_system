@@ -30,6 +30,21 @@ defmodule EmployeeManagementSystem.Messages do
     )
   end
 
+  def subcribe do
+    Phoenix.PubSub.subscribe(EmployeeManagementSystem.PubSub, "messages")
+  end
+
+  def broadcast({:ok, message}, event) do
+    Phoenix.PubSub.broadcast(EmployeeManagementSystem.PubSub, "messages", {event, message})
+    |> IO.inspect()
+
+    {:ok, message}
+  end
+
+  def broadcast({:error, changeset}, event) do
+    {:error, changeset}
+  end
+
   @doc """
   Gets a single message.
 
@@ -62,6 +77,7 @@ defmodule EmployeeManagementSystem.Messages do
     %Message{}
     |> Message.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:create)
   end
 
   @doc """

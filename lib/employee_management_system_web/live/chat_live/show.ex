@@ -10,12 +10,10 @@ defmodule EmployeeManagementSystemWeb.ChatLive.Show do
   alias EmployeeManagementSystem.Groups.Group
 
   @impl true
-  def mount(_params, session, socket) do
+  def mount(params, session, socket) do
     changeset = Messages.change_message(%Message{})
     user = Users.get_user_by_session_token(session["user_token"])
     search_changeset = Messages.change_message(%Message{})
-
-    IO.inspect(Users.list_users())
 
     image_changeset = Messages.change_message(%Message{})
 
@@ -28,42 +26,66 @@ defmodule EmployeeManagementSystemWeb.ChatLive.Show do
       Users.list_users_except_current_user(user.id)
       |> Enum.filter(fn user -> user.email != "admin@gmail.com" end)
 
-    {:ok,
-     socket
-     |> assign(:message, %Message{})
-     |> assign(:image_message, %Message{})
-     |> assign(:image_changeset, image_changeset)
-     |> assign(:sender_id, user.id)
-     |> assign(:current_user, user)
-     |> assign(:search_changeset, search_changeset)
-     |> assign(:users, users)
-     |> assign(:first_4_users, first_4_users)
-     |> assign(:changeset, changeset)}
+    receiver_id = String.to_integer(params["id"])
+
+    messages = Messages.list_messages_for_a_receiver_and_sender(user.id, receiver_id)
+
+    if connected?(socket) do
+      Messages.subcribe()
+
+      {:ok,
+       socket
+       |> assign(:message, %Message{})
+       |> assign(:image_message, %Message{})
+       |> assign(:image_changeset, image_changeset)
+       |> assign(:sender_id, user.id)
+       |> assign(:current_user, user)
+       |> assign(:search_changeset, search_changeset)
+       |> assign(:users, users)
+       |> assign(:first_4_users, first_4_users)
+       |> assign(:messages, messages)
+       |> assign(:changeset, changeset)}
+    else
+      {:ok,
+       socket
+       |> assign(:message, %Message{})
+       |> assign(:image_message, %Message{})
+       |> assign(:image_changeset, image_changeset)
+       |> assign(:sender_id, user.id)
+       |> assign(:current_user, user)
+       |> assign(:search_changeset, search_changeset)
+       |> assign(:users, users)
+       |> assign(:first_4_users, first_4_users)
+       |> assign(:messages, messages)
+       |> assign(:changeset, changeset)}
+    end
   end
 
   @impl true
   def handle_params(params, _, socket) do
     sender_id = socket.assigns.sender_id
 
-    IO.inspect(params)
-
     receiver_id = String.to_integer(params["id"])
 
-    IO.inspect(receiver_id)
-    IO.inspect(sender_id)
     messages = Messages.list_messages_for_a_receiver_and_sender(sender_id, receiver_id)
-    IO.inspect(messages)
 
     all_messages = Messages.list_messages()
 
-    IO.inspect(all_messages)
+    if connected?(socket) do
+      Messages.subcribe()
 
-    {:noreply,
-     socket
-     |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:receiver_id, params["id"])
-     |> assign(:messages, messages)
-     |> assign(:user, Users.get_user!(params["id"]))}
+      {:noreply,
+       socket
+       |> assign(:page_title, page_title(socket.assigns.live_action))
+       |> assign(:receiver_id, params["id"])
+       |> assign(:user, Users.get_user!(params["id"]))}
+    else
+      {:noreply,
+       socket
+       |> assign(:page_title, page_title(socket.assigns.live_action))
+       |> assign(:receiver_id, params["id"])
+       |> assign(:user, Users.get_user!(params["id"]))}
+    end
   end
 
   def handle_event("save", %{"message" => message_params}, socket) do
@@ -72,10 +94,6 @@ defmodule EmployeeManagementSystemWeb.ChatLive.Show do
     receiver_id = socket.assigns.receiver_id
 
     sender_id = socket.assigns.sender_id
-
-    IO.inspect(sender_id)
-
-    IO.inspect(receiver_id)
 
     new_message_params =
       Map.put(message_params, "receiver_id", receiver_id)
@@ -102,6 +120,11 @@ defmodule EmployeeManagementSystemWeb.ChatLive.Show do
     end
   end
 
+  def handle_info(message, socket) do
+    IO.inspect(message, label: "message")
+    {:noreply, socket}
+  end
+
   def handle_event("save_text", params, socket) do
     IO.inspect("lalal")
     IO.inspect(params)
@@ -112,8 +135,6 @@ defmodule EmployeeManagementSystemWeb.ChatLive.Show do
   end
 
   def handle_event("search", %{"message" => message_params}, socket) do
-    IO.inspect("fred")
-
     {:noreply,
      socket
      |> assign(
