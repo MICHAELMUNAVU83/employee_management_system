@@ -10,12 +10,15 @@ defmodule EmployeeManagementSystemWeb.GroupLive.Index do
     user = Users.get_user_by_session_token(session["user_token"])
     groups_for_user = Groups.list_groups_for_a_member(user.id)
 
-    all_groups = Groups.list_groups()
+    all_groups =
+      Groups.list_groups()
+      |> Enum.filter(fn group -> group.department == user.department end)
+
     IO.inspect(all_groups)
     search_changeset = Groups.change_group(%Group{})
 
     groups =
-      if user.email == "admin@gmail.com" do
+      if user.role == "manager" do
         all_groups
       else
         groups_for_user
