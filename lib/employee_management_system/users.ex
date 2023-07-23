@@ -38,6 +38,7 @@ defmodule EmployeeManagementSystem.Users do
       from(u in User,
         where:
           u.id != ^current_user.id and
+
             (fragment("first_name ILIKE ?", ^"%#{search_term}%") or
                fragment("last_name ILIKE ?", ^"%#{search_term}%"))
       )
@@ -49,6 +50,7 @@ defmodule EmployeeManagementSystem.Users do
       from(u in User,
         where:
           u.id != ^current_user.id and
+          u.email != "admin@gmail.com" and
             u.department == ^current_user.department and
             (fragment("first_name ILIKE ?", ^"%#{search_term}%") or
                fragment("last_name ILIKE ?", ^"%#{search_term}%"))
@@ -70,6 +72,7 @@ defmodule EmployeeManagementSystem.Users do
       from(u in User,
         where:
           u.id != ^current_user_id and
+          u.email != "admin@gmail.com" and
             u.department == ^current_user_department
       )
     )
