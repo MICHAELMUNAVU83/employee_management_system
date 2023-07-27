@@ -17,6 +17,25 @@ defmodule EmployeeManagementSystem.GroupMessages do
       [%GroupMessage{}, ...]
 
   """
+
+  def subcribe do
+    Phoenix.PubSub.subscribe(EmployeeManagementSystem.PubSub, "group_messages")
+  end
+
+  def broadcast({:ok, group_message}, event) do
+    Phoenix.PubSub.broadcast(
+      EmployeeManagementSystem.PubSub,
+      "group_messages",
+      {event, group_message}
+    )
+
+    {:ok, group_message}
+  end
+
+  def broadcast({:error, changeset}, event) do
+    {:error, changeset}
+  end
+
   def list_group_messages do
     Repo.all(GroupMessage)
   end
@@ -58,6 +77,7 @@ defmodule EmployeeManagementSystem.GroupMessages do
     %GroupMessage{}
     |> GroupMessage.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:create)
   end
 
   @doc """

@@ -15,11 +15,21 @@ defmodule EmployeeManagementSystemWeb.GroupLive.Show do
     user = Users.get_user_by_session_token(session["user_token"])
     search_changeset = Groups.change_group(%Group{})
 
-    {:ok,
-     socket
-     |> assign(:current_user, user)
-     |> assign(:search_changeset, search_changeset)
-     |> assign(:group_message_changeset, GroupMessages.change_group_message(%GroupMessage{}))}
+    if connected?(socket) do
+      GroupMessages.subcribe()
+
+      {:ok,
+       socket
+       |> assign(:current_user, user)
+       |> assign(:search_changeset, search_changeset)
+       |> assign(:group_message_changeset, GroupMessages.change_group_message(%GroupMessage{}))}
+    else
+      {:ok,
+       socket
+       |> assign(:current_user, user)
+       |> assign(:search_changeset, search_changeset)
+       |> assign(:group_message_changeset, GroupMessages.change_group_message(%GroupMessage{}))}
+    end
   end
 
   @impl true
@@ -86,7 +96,7 @@ defmodule EmployeeManagementSystemWeb.GroupLive.Show do
   # end
 
   def handle_event("save_message", %{"group_message" => %{"text" => text}}, socket) do
-    group_message_changeet = GroupMessages.change_group_message(%GroupMessage{})
+    group_message_changeset = GroupMessages.change_group_message(%GroupMessage{})
 
     if String.trim(text) == "" do
       {:noreply,
@@ -101,11 +111,35 @@ defmodule EmployeeManagementSystemWeb.GroupLive.Show do
         {:ok, _group_message} ->
           {:noreply,
            socket
-           |> push_redirect(to: Routes.group_show_path(socket, :show, socket.assigns.group))}
+           |> assign(:group_message_changeset, group_message_changeset)
+           |> assign(
+             :group_messages,
+             GroupMessages.list_group_messages_for_a_group(socket.assigns.group.id)
+           )}
 
         {:error, %Ecto.Changeset{} = changeset} ->
           {:noreply, assign(socket, group_member_changeset: changeset)}
       end
+    end
+  end
+
+  def handle_info({:create, group_message}, socket) do
+    IO.inspect(group_message.group_id)
+    IO.inspect(socket.assigns.group.id)
+
+    if group_message.group_id == socket.assigns.group.id do
+      IO.inspect("same")
+
+      {:noreply,
+       socket
+       |> assign(
+         :group_messages,
+         socket.assigns.group_messages ++ [group_message]
+       )}
+    else
+      IO.inspect("not same")
+
+      {:noreply, socket}
     end
   end
 

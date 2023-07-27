@@ -39,16 +39,7 @@
         <% end %>
       </div>
 
-      <div class="hover:bg-[#3E4A56] transition-all duration-500 ease-in-out group p-4 cursor-pointer rounded-xl">
-        <%= live_redirect(to: Routes.task_mytasks_path(@socket, :show, @current_user))  do %>
-          <%= Heroicons.icon("rectangle-stack",
-            type: "solid",
-            class:
-              "h-8  text-[#A6B0CF] group-hover:text-[#7269EF] transition-all duration-500 ease-in-out rounded-xl w-8"
-          ) %>
-        <% end %>
-      </div>
-
+      
       <div class="hover:bg-[#3E4A56] transition-all duration-500 ease-in-out group p-4 cursor-pointer rounded-xl">
         <%= live_redirect(to: Routes.event_index_path(@socket, :index)) do %>
           <%= Heroicons.icon("calendar-days",
