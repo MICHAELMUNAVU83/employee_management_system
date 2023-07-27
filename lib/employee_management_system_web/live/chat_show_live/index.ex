@@ -73,7 +73,7 @@ defmodule EmployeeManagementSystemWeb.ChatShowLive.Index do
       Map.put(message_params, "receiver_id", receiver_id)
       |> Map.put("sender_id", sender_id)
 
-    IO.inspect(new_message_params)
+
 
     if new_message_params["text"] != "" do
       case Messages.create_message(new_message_params) do
@@ -92,6 +92,12 @@ defmodule EmployeeManagementSystemWeb.ChatShowLive.Index do
        socket
        |> put_flash(:info, "Message cannot be empty")}
     end
+  end
+
+
+  def handle_info(params, socket) do
+    IO.inspect(params)
+    {:noreply, socket}
   end
 
   def handle_event("search", %{"message" => message_params}, socket) do
