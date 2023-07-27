@@ -272,6 +272,32 @@
               ) %>
             <% end %>
           </p>
+          <nav phx-hook="Navbar" id="nav">
+            <div class="flex   items-center justify-between p-2">
+              <div>
+                <button id="toggleButton" class="  p-2 rounded-md gap-2  ">
+                  <%= Heroicons.icon("user-group",
+                    type: "solid",
+                    class: "h-6 text-white w-6"
+                  ) %>
+                </button>
+              </div>
+            </div>
+
+            <div
+              id="sidebar"
+              class="fixed green top-0 z-50 right-0 h-full w-[300px] bg-[#131217] transition duration-300 transform translate-x-full"
+            >
+              <div
+                class="flex flex-col inter-regular gap-4 items-start p-4 pt-24 "
+                id="sidebarContent"
+              >
+                <%= for group_member <- @group_members do %>
+                  <%= group_member.user.first_name %>
+                <% end %>
+              </div>
+            </div>
+          </nav>
           <%= if @all_users != [] do %>
             <%= live_redirect(
             to: Routes.group_show_path(@socket, :addgroupmember, @group)
@@ -285,32 +311,6 @@
             <span>all members are present</span>
           <% end %>
         </div>
-
-        <nav phx-hook="Navbar" id="nav">
-          <div class="flex   items-center justify-between p-2">
-            <div>
-              <button id="toggleButton" class=" flex flex-col bg-[#D29F39] p-2 rounded-md gap-2  ">
-                <p class="bg-white h-[2px] w-[25px]" />
-                <p class="bg-white h-[2px] w-[25px]" />
-                <p class="bg-white h-[2px] w-[25px]" />
-              </button>
-            </div>
-          </div>
-
-          <div
-            id="sidebar"
-            class="fixed green top-0 z-50 right-0 h-full w-[200px] bg-[#131217] transition duration-300 transform translate-x-full"
-          >
-            <div
-              class="flex flex-col inter-regular gap-4 items-start p-4 pt-24 "
-              id="sidebarContent"
-            >
-              <%= for group_member <- @group_members do %>
-                <%= group_member.user.first_name %>
-              <% end %>
-            </div>
-          </div>
-        </nav>
       <% end %>
     </div>
     <div class="bg-[#262E35] h-[80%] flex items-end p-4 overflow-x-scroll w-[100%]">

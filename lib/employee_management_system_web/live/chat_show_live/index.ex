@@ -93,10 +93,8 @@ defmodule EmployeeManagementSystemWeb.ChatShowLive.Index do
 
   @spec handle_info(any, any) :: {:noreply, any}
   def handle_info({:create, message}, socket) do
-    if (message.receiver_id == socket.assigns.receiver_id and
-          message.sender_id == socket.assigns.sender_id) or
-         (message.receiver_id == socket.assigns.sender_id and
-            message.sender_id == socket.assigns.receiver_id) do
+    if message.receiver_id == socket.assigns.sender_id and
+         message.sender_id == socket.assigns.receiver_id do
       {:noreply, assign(socket, :messages, socket.assigns.messages ++ [message])}
     else
       {:noreply, socket}
