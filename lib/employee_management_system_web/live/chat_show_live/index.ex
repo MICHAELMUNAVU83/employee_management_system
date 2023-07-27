@@ -73,8 +73,6 @@ defmodule EmployeeManagementSystemWeb.ChatShowLive.Index do
       Map.put(message_params, "receiver_id", receiver_id)
       |> Map.put("sender_id", sender_id)
 
-
-
     if new_message_params["text"] != "" do
       case Messages.create_message(new_message_params) do
         {:ok, _message} ->
@@ -84,8 +82,7 @@ defmodule EmployeeManagementSystemWeb.ChatShowLive.Index do
              :messages,
              Messages.list_messages_for_a_receiver_and_sender(sender_id, receiver_id)
            )
-           |> assign(:changeset, changeset)
-           |> push_redirect(to: Routes.chat_show_index_path(socket, :index, receiver_id))}
+           |> assign(:changeset, changeset)}
       end
     else
       {:noreply,
@@ -94,10 +91,16 @@ defmodule EmployeeManagementSystemWeb.ChatShowLive.Index do
     end
   end
 
-
-  def handle_info(params, socket) do
-    IO.inspect(params)
-    {:noreply, socket}
+  @spec handle_info(any, any) :: {:noreply, any}
+  def handle_info({:create, message}, socket) do
+    if (message.receiver_id == socket.assigns.receiver_id and
+          message.sender_id == socket.assigns.sender_id) or
+         (message.receiver_id == socket.assigns.sender_id and
+            message.sender_id == socket.assigns.receiver_id) do
+      {:noreply, assign(socket, :messages, socket.assigns.messages ++ [message])}
+    else
+      {:noreply, socket}
+    end
   end
 
   def handle_event("search", %{"message" => message_params}, socket) do

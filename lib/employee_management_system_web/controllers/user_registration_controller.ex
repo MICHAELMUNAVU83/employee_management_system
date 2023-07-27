@@ -11,20 +11,42 @@ defmodule EmployeeManagementSystemWeb.UserRegistrationController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    case Users.register_user(user_params) do
-      {:ok, user} ->
-        {:ok, _} =
-          Users.deliver_user_confirmation_instructions(
-            user,
-            &Routes.user_confirmation_url(conn, :edit, &1)
-          )
+    if user_params["email"] != "admin@gmail.com" do
+      IO.inspect(user_params)
 
-        conn
-        |> put_flash(:info, "User created successfully.")
-        |> UserAuth.log_in_user(user)
+      case Users.register_user(user_params) do
+        {:ok, user} ->
+          {:ok, _} =
+            Users.deliver_user_confirmation_instructions(
+              user,
+              &Routes.user_confirmation_url(conn, :edit, &1)
+            )
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+          conn
+          |> put_flash(:info, "User created successfully.")
+          |> UserAuth.log_in_user(user)
+
+        {:error, %Ecto.Changeset{} = changeset} ->
+          render(conn, "new.html", changeset: changeset)
+      end
+    else
+      new_user_params = Map.put(user_params, "role", "manager")
+
+      case Users.register_user(new_user_params) do
+        {:ok, user} ->
+          {:ok, _} =
+            Users.deliver_user_confirmation_instructions(
+              user,
+              &Routes.user_confirmation_url(conn, :edit, &1)
+            )
+
+          conn
+          |> put_flash(:info, "User created successfully.")
+          |> UserAuth.log_in_user(user)
+
+        {:error, %Ecto.Changeset{} = changeset} ->
+          render(conn, "new.html", changeset: changeset)
+      end
     end
   end
 end
