@@ -21,6 +21,12 @@ defmodule EmployeeManagementSystem.GroupMembers do
     Repo.all(GroupMember)
   end
 
+  def list_group_members_for_a_group(id) do
+    Repo.all(GroupMember)
+    |> Enum.filter(fn x -> x.group_id == String.to_integer(id) end)
+    |> Repo.preload(:user)
+  end
+
   @doc """
   Gets a single group_member.
 

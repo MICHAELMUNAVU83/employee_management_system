@@ -75,6 +75,8 @@ defmodule EmployeeManagementSystemWeb.GroupLive.Show do
         all_department_users
       end
 
+    group_members_for_a_group = GroupMembers.list_group_members_for_a_group(id)
+
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
@@ -83,6 +85,7 @@ defmodule EmployeeManagementSystemWeb.GroupLive.Show do
      |> assign(:group_messages, group_messages)
      |> assign(:all_users, all_users)
      |> assign(:groups, groups)
+     |> assign(:group_members, group_members_for_a_group)
      |> assign(:group, Groups.get_group!(id))}
   end
 

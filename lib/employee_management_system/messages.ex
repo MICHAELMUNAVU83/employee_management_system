@@ -35,13 +35,11 @@ defmodule EmployeeManagementSystem.Messages do
   end
 
   def broadcast({:ok, message}, event) do
-
     Phoenix.PubSub.broadcast(EmployeeManagementSystem.PubSub, "messages", {event, message})
     {:ok, message}
   end
 
   def broadcast({:error, changeset}, event) do
-    
     {:error, changeset}
   end
 
