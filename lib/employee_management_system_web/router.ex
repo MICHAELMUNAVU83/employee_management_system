@@ -33,8 +33,9 @@ defmodule EmployeeManagementSystemWeb.Router do
     live("/messages/:id/show/edit", MessageLive.Show, :edit)
 
     live("/chats", ChatLive.Index, :index)
-    live("/chats/:id", ChatLive.Show, :show)
-    live("chats/:id/addimage", ChatLive.Show, :addimage)
+
+    live("chat_show/:id", ChatShowLive.Index, :index)
+
     live("/groups/newgroup", ChatLive.Index, :newgroup)
 
     live("/groups", GroupLive.Index, :index)
