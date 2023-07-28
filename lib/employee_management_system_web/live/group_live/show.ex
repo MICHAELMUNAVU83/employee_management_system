@@ -75,7 +75,7 @@ defmodule EmployeeManagementSystemWeb.GroupLive.Show do
         all_department_users
       end
 
-    group_members_for_a_group = GroupMembers.list_group_members_for_a_group(id)
+    group_members_for_a_group = GroupMembers.list_group_members_for_a_group(String.to_integer(id))
 
     {:noreply,
      socket
@@ -130,7 +130,8 @@ defmodule EmployeeManagementSystemWeb.GroupLive.Show do
     IO.inspect(group_message.group_id)
     IO.inspect(socket.assigns.group.id)
 
-    if group_message.group_id == socket.assigns.group.id do
+    if group_message.group_id == socket.assigns.group.id and
+         group_message.user_id != socket.assigns.current_user.id do
       IO.inspect("same")
 
       {:noreply,
@@ -153,6 +154,19 @@ defmodule EmployeeManagementSystemWeb.GroupLive.Show do
     {:noreply,
      socket
      |> assign(:groups, groups)}
+  end
+
+  def handle_event("remove_from_group", %{"id" => id}, socket) do
+    IO.inspect(id)
+    group_member = GroupMembers.get_group_member!(id)
+    {:ok, _} = GroupMembers.delete_group_member(group_member)
+
+    {:noreply,
+     assign(
+       socket,
+       :group_members,
+       GroupMembers.list_group_members_for_a_group(group_member.group_id)
+     )}
   end
 
   defp page_title(:show), do: "Show Group"

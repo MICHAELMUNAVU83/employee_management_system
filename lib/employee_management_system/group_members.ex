@@ -23,7 +23,7 @@ defmodule EmployeeManagementSystem.GroupMembers do
 
   def list_group_members_for_a_group(id) do
     Repo.all(GroupMember)
-    |> Enum.filter(fn x -> x.group_id == String.to_integer(id) end)
+    |> Enum.filter(fn x -> x.group_id == id end)
     |> Repo.preload(:user)
   end
 

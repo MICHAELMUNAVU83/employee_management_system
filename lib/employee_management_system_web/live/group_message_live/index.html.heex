@@ -23,7 +23,7 @@
   </thead>
   <tbody id="group_messages">
     <%= for group_message <- @group_messages do %>
-      <tr id={"group_message-#{group_message.id}"}>
+      <tr id={"group_message-#{group_message.id}"} class="my-2">
         <td><%= group_message.text %></td>
 
         <td>

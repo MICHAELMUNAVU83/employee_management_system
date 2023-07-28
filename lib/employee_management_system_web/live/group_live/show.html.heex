@@ -286,15 +286,71 @@
 
             <div
               id="sidebar"
-              class="fixed green top-0 z-50 right-0 h-full w-[300px] bg-[#131217] transition duration-300 transform translate-x-full"
+              class="fixed green top-0 z-50 right-0 h-full w-[300px] bg-[#37404A] transition duration-300 transform translate-x-full"
             >
-              <div
-                class="flex flex-col inter-regular gap-4 items-start p-4 pt-24 "
-                id="sidebarContent"
-              >
-                <%= for group_member <- @group_members do %>
-                  <%= group_member.user.first_name %>
-                <% end %>
+              <div class="flex flex-col inter-regular gap-4 items-start p-4 pt-8 ">
+                <div id="sidebarContent" class="cursor-pointer">
+                  <%= Heroicons.icon("arrow-long-left",
+                    type: "solid",
+                    class: "h-6 text-white w-6"
+                  ) %>
+                </div>
+                <p class="poppins-regular uppercase text-[#7269EF]">
+                  Group Members
+                </p>
+                <table class="text-center w-[100%]">
+                  <thead class="w-[100%] text-center ">
+                    <tr>
+                      <th>
+                        Image
+                      </th>
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%= for group_member <- @group_members do %>
+                      <tr>
+                        <td class="py-2">
+                          <div class="flex gap-2  justify-center items-center">
+                            <%= img_tag(
+                              EmployeeManagementSystem.ProfilePhoto.url(
+                                {group_member.user.photo, {group_member.user}},
+                                signed: true
+                              ),
+                              class: " w-[32px] object-cover h-[32px]  rounded-full "
+                            ) %>
+                          </div>
+                        </td>
+
+                        <td>
+                          <p class="text-sm">
+                            <%= group_member.user.first_name %>
+                          </p>
+                        </td>
+                        <td>
+                          <div class="flex justify-center items-center gap-2">
+                            <%= link(
+              to: "#",
+              phx_click: "remove_from_group",
+              phx_value_id: group_member.id,
+              data: [confirm: "Are you sure?"]
+            ) do %>
+                              <%= Heroicons.icon("trash",
+                                type: "solid",
+                                class: "h-6 text-white w-6"
+                              ) %>
+                            <% end %>
+                          </div>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
               </div>
             </div>
           </nav>
@@ -308,12 +364,15 @@
               ) %>
             <% end %>
           <% else %>
-            <span>all members are present</span>
+            <%= Heroicons.icon("lock-closed",
+              type: "solid",
+              class: "h-6 text-white w-6"
+            ) %>
           <% end %>
         </div>
       <% end %>
     </div>
-    <div class="bg-[#262E35] h-[80%] flex items-end p-4 overflow-x-scroll w-[100%]">
+    <div class="bg-[#262E35] h-[80%] flex items-end p-4 overflow-hidden w-[100%]">
       <div class="flex flex-col w-[100%] gap-2">
         <%= for message <- @group_messages do %>
           <%= if message.user_id == @current_user.id do %>
