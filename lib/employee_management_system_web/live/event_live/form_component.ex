@@ -12,7 +12,7 @@ defmodule EmployeeManagementSystemWeb.EventLive.FormComponent do
      |> assign(assigns)
      |> assign(:changeset, changeset)
      |> assign(:uploaded_files, [])
-     |> allow_upload(:event_image, accept: ~w(.jpg .png .jpeg), max_entries: 1)}
+     |> allow_upload(:event_image, accept: ~w(.jpg .png .jpeg .pdf), max_entries: 1)}
   end
 
   @impl true
