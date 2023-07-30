@@ -51,6 +51,7 @@
             </p>
 
             <%= live_file_input(@uploads.image,
+              required: true,
               class:
                 "w-[100%] h-[50px] bg-[#eff2f7] p-2 poppins-regular text-[#37404A] border border-transparent   focus:ring-0 border-none"
             ) %>
@@ -64,6 +65,7 @@
             </p>
 
             <%= live_file_input(@uploads.pdf,
+              required: true,
               class:
                 "w-[100%] h-[50px] bg-[#eff2f7] p-2 poppins-regular text-[#37404A] border border-transparent   focus:ring-0 border-none"
             ) %>
@@ -74,6 +76,7 @@
             Add a link to the work you have done
           </p>
           <%= text_input(f, :link,
+            required: true,
             class:
               "w-[100%] h-[50px] bg-[#eff2f7] poppins-regular text-[#37404A] border border-transparent   focus:ring-0 border-none"
           ) %>
