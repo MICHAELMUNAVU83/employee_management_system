@@ -1,3 +1,16 @@
+<%= if @live_action in [:add_submission] do %>
+  <.modal return_to={Routes.task_mytasks_path(@socket, :show, @current_user)}>
+    <.live_component
+      module={EmployeeManagementSystemWeb.SubmissionLive.FormComponent}
+      id={@submission.id || :new}
+      title={@page_title}
+      action={@live_action}
+      submission={@submission}
+      return_to={Routes.task_mytasks_path(@socket, :show, @current_user)}
+    />
+  </.modal>
+<% end %>
+
 <div class="flex justify-between poppins-regular h-[100vh]">
   <div class="md:w-1/12 w-2/12 bg-[#37404A] poppins-regular  h-[100vh] flex flex-col items-center justify-between py-8 ">
     <div>
@@ -147,6 +160,13 @@
                           </p>
                         <% end %>
                       </p>
+                    </div>
+                    <div>
+                      <%= live_patch(to: Routes.task_mytasks_path(@socket, :add_submission,  task.id)) do %>
+                        <button class="bg-[#7269EF] text-white text-sm px-2 py-2 rounded-md">
+                          Add Submission
+                        </button>
+                      <% end %>
                     </div>
                   </div>
                 </div>

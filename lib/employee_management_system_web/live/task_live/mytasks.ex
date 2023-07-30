@@ -7,6 +7,8 @@ defmodule EmployeeManagementSystemWeb.TaskLive.Mytasks do
   alias EmployeeManagementSystem.Tasks.Task
   alias EmployeeManagementSystem.Messages
   alias EmployeeManagementSystem.Messages.Message
+  alias EmployeeManagementSystem.Submissions
+  alias EmployeeManagementSystem.Submissions.Submission
   @impl true
   def mount(_params, session, socket) do
     current_user = Users.get_user_by_session_token(session["user_token"])
@@ -37,6 +39,8 @@ defmodule EmployeeManagementSystemWeb.TaskLive.Mytasks do
         %Task{}
       end
 
+    submission = %Submission{}
+
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
@@ -44,6 +48,7 @@ defmodule EmployeeManagementSystemWeb.TaskLive.Mytasks do
      |> assign(:tasks, tasks)
      |> assign(:pending_tasks, pending_tasks)
      |> assign(:completed_tasks, completed_tasks)
+     |> assign(:submission, submission)
      |> assign(:task_changeset, Tasks.change_task(%Task{}))
      |> assign(:user, Users.get_user!(params["id"]))}
   end
@@ -56,4 +61,5 @@ defmodule EmployeeManagementSystemWeb.TaskLive.Mytasks do
   end
 
   defp page_title(:show), do: "Show Task"
+  defp page_title(:add_submission), do: "Add Submission"
 end

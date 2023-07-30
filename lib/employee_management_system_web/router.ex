@@ -65,6 +65,7 @@ defmodule EmployeeManagementSystemWeb.Router do
     live("/tasks/:id/:task_id/edit", TaskLive.Show, :edit)
     live("/tasks/:id", TaskLive.Show, :show)
     live("mytasks/:id", TaskLive.Mytasks, :show)
+    live("tasks/:id/add_submission", TaskLive.Mytasks, :add_submission)
     live("/tasks/:id/:task_id/newreview", TaskLive.Show, :newreview)
     live("/tasks/:id/:task_id/:review_id/edit", TaskLive.Show, :editreview)
 
@@ -74,6 +75,13 @@ defmodule EmployeeManagementSystemWeb.Router do
 
     live("/events/:id", EventLive.Show, :show)
     live("/events/:id/show/edit", EventLive.Show, :edit)
+
+    live("/submissions", SubmissionLive.Index, :index)
+    live("/submissions/new", SubmissionLive.Index, :new)
+    live("/submissions/:id/edit", SubmissionLive.Index, :edit)
+
+    live("/submissions/:id", SubmissionLive.Show, :show)
+    live("/submissions/:id/show/edit", SubmissionLive.Show, :edit)
 
     # live "/reviews", ReviewLive.Index, :index
     # live "/reviews/new", ReviewLive.Index, :new
