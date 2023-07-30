@@ -22,6 +22,8 @@ defmodule EmployeeManagementSystemWeb.TaskLive.Mytasks do
   def handle_params(params, _, socket) do
     tasks = Tasks.list_tasks_for_user(socket.assigns.current_user.id)
 
+    IO.inspect(params)
+
     pending_tasks =
       tasks
       |> Enum.filter(fn task -> task.status == "pending" end)
@@ -39,7 +41,14 @@ defmodule EmployeeManagementSystemWeb.TaskLive.Mytasks do
 
     task_submission_for = String.to_integer(params["id"])
 
-    submission = %Submission{}
+    IO.inspect(task_submission_for)
+
+    submission =
+      if params["submission_id"] do
+        Submissions.get_submission!(params["submission_id"])
+      else
+        %Submission{}
+      end
 
     {:noreply,
      socket
@@ -63,4 +72,5 @@ defmodule EmployeeManagementSystemWeb.TaskLive.Mytasks do
 
   defp page_title(:show), do: "Show Task"
   defp page_title(:add_submission), do: "Add Submission"
+  defp page_title(:edit_submission), do: "Edit Submission"
 end

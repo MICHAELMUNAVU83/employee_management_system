@@ -10,7 +10,7 @@ defmodule EmployeeManagementSystem.Submissions.Submission do
     field(:pdf, :string)
     field(:title, :string)
     field(:type, :string)
-    belongs_to(:task, Task)
+    belongs_to(:task, EmployeeManagementSystem.Tasks.Task)
 
     timestamps()
   end

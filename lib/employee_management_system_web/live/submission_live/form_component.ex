@@ -78,7 +78,9 @@ defmodule EmployeeManagementSystemWeb.SubmissionLive.FormComponent do
     end
   end
 
-  defp save_submission(socket, :edit, submission_params) do
+  defp save_submission(socket, :edit_submission, submission_params) do
+    IO.inspect(submission_params)
+
     case Submissions.update_submission(socket.assigns.submission, submission_params) do
       {:ok, _submission} ->
         {:noreply,

@@ -66,6 +66,7 @@ defmodule EmployeeManagementSystemWeb.Router do
     live("/tasks/:id", TaskLive.Show, :show)
     live("mytasks/:id", TaskLive.Mytasks, :show)
     live("tasks/:id/add_submission", TaskLive.Mytasks, :add_submission)
+    live("tasks/:id/:submission_id/edit_submission", TaskLive.Mytasks, :edit_submission)
     live("/tasks/:id/:task_id/newreview", TaskLive.Show, :newreview)
     live("/tasks/:id/:task_id/:review_id/edit", TaskLive.Show, :editreview)
 

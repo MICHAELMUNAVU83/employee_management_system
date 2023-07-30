@@ -1,4 +1,4 @@
-<%= if @live_action in [:add_submission] do %>
+<%= if @live_action in [:add_submission , :edit_submission] do %>
   <.modal return_to={Routes.task_mytasks_path(@socket, :show, @current_user)}>
     <.live_component
       module={EmployeeManagementSystemWeb.SubmissionLive.FormComponent}
@@ -199,38 +199,48 @@
                       </div>
 
                       <div class="pb-2 flex justify-between w-[100%]">
-                        <%= if submission.type == "pdf" do %>
-                          <a
-                            href={submission.pdf}
-                            role="button"
-                            download={submission.title <> ".pdf"}
-                            class="bg-[#7269EF] text-white text-sm px-2 py-2 rounded-md"
-                          >
-                            Download PDF Submission
-                          </a>
-                        <% end %>
+                        <div>
+                          <%= if submission.type == "pdf" do %>
+                            <a
+                              href={submission.pdf}
+                              role="button"
+                              download={submission.title <> ".pdf"}
+                              class="bg-[#7269EF] text-white text-sm px-2 py-2 rounded-md"
+                            >
+                              Download PDF Submission
+                            </a>
+                          <% end %>
 
-                        <%= if submission.type == "image" do %>
-                          <a
-                            href={submission.image}
-                            role="button"
-                            download={submission.title <> ".png"}
-                            class="bg-[#7269EF] text-white text-sm px-2 py-2 rounded-md"
-                          >
-                            Download Image Submission
-                          </a>
-                        <% end %>
+                          <%= if submission.type == "image" do %>
+                            <a
+                              href={submission.image}
+                              role="button"
+                              download={submission.title <> ".png"}
+                              class="bg-[#7269EF] text-white text-sm px-2 py-2 rounded-md"
+                            >
+                              Download Image Submission
+                            </a>
+                          <% end %>
 
-                        <%= if submission.type == "link" do %>
-                          <a
-                            href={submission.link}
-                            rel="noopener noreferrer"
-                            target="_blank"
-                            class="bg-[#7269EF] text-white text-sm px-2 py-2 rounded-md"
-                          >
-                            Visit Link
-                          </a>
-                        <% end %>
+                          <%= if submission.type == "link" do %>
+                            <a
+                              href={submission.link}
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              class="bg-[#7269EF] text-white text-sm px-2 py-2 rounded-md"
+                            >
+                              Visit Link
+                            </a>
+                          <% end %>
+                        </div>
+
+                        <div class="flex gap-2 items-center">
+                          <%= live_patch(to: Routes.task_mytasks_path(@socket, :edit_submission,  submission.task_id , submission.id)) do %>
+                            <button class="bg-[#7269EF] text-white text-sm px-2 py-2 rounded-md">
+                              Edit Submission
+                            </button>
+                          <% end %>
+                        </div>
                       </div>
                     </div>
                   <% end %>
