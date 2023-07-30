@@ -7,6 +7,7 @@
     phx-change="validate"
     phx-submit="save"
   >
+    <%= hidden_input(f, :task_id, value: @task_id) %>
     <p class="text-[#7269EF] text-center text-xl poppins-regular">
       Add A submission for this task
     </p>
@@ -44,15 +45,29 @@
 
       <%= if @format_selected != "" do %>
         <%= if @format_selected == "image" do %>
-          <%= label(f, :image) %>
-          <%= text_input(f, :image) %>
-          <%= error_tag(f, :image) %>
+          <div>
+            <p class="text-[#eff2f7] poppins-regular">
+              Add an image  of the work you have done
+            </p>
+
+            <%= live_file_input(@uploads.image,
+              class:
+                "w-[100%] h-[50px] bg-[#eff2f7] p-2 poppins-regular text-[#37404A] border border-transparent   focus:ring-0 border-none"
+            ) %>
+          </div>
         <% end %>
 
         <%= if @format_selected == "pdf" do %>
-          <%= label(f, :pdf) %>
-          <%= text_input(f, :pdf) %>
-          <%= error_tag(f, :pdf) %>
+          <div>
+            <p class="text-[#eff2f7] poppins-regular">
+              Add a pdf file of the work you have done
+            </p>
+
+            <%= live_file_input(@uploads.pdf,
+              class:
+                "w-[100%] h-[50px] bg-[#eff2f7] p-2 poppins-regular text-[#37404A] border border-transparent   focus:ring-0 border-none"
+            ) %>
+          </div>
         <% end %>
         <%= if @format_selected == "link" do %>
           <p class="text-[#eff2f7] poppins-regular">
@@ -66,6 +81,10 @@
             <%= error_tag(f, :link) %>
           </p>
         <% end %>
+      <% end %>
+
+      <%= for entry <- @uploads.image.entries do %>
+        <%= live_img_preview(entry, class: "w-[100%] object-contain h-[200px]") %>
       <% end %>
 
       <div class="flex justify-center items-center">
