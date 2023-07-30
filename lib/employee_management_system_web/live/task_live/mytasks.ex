@@ -70,6 +70,19 @@ defmodule EmployeeManagementSystemWeb.TaskLive.Mytasks do
     {:noreply, assign(socket, :tasks, Tasks.list_tasks())}
   end
 
+  def handle_event("delete_submission", %{"id" => id}, socket) do
+    submission = Submissions.get_submission!(id)
+    {:ok, _} = Submissions.delete_submission(submission)
+
+    pending_tasks =
+      Tasks.list_tasks_for_user(socket.assigns.current_user.id)
+      |> Enum.filter(fn task -> task.status == "pending" end)
+
+    {:noreply,
+     socket
+     |> assign(:pending_tasks, pending_tasks)}
+  end
+
   defp page_title(:show), do: "Show Task"
   defp page_title(:add_submission), do: "Add Submission"
   defp page_title(:edit_submission), do: "Edit Submission"
