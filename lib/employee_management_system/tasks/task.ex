@@ -9,6 +9,7 @@ defmodule EmployeeManagementSystem.Tasks.Task do
     field(:title, :string)
     belongs_to(:user, EmployeeManagementSystem.Users.User)
     has_many(:reviews, EmployeeManagementSystem.Reviews.Review)
+    has_many(:submissions, EmployeeManagementSystem.Submissions.Submission)
 
     timestamps()
   end

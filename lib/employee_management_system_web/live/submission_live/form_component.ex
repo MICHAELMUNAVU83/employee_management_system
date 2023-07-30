@@ -31,30 +31,50 @@ defmodule EmployeeManagementSystemWeb.SubmissionLive.FormComponent do
   end
 
   def handle_event("save", %{"submission" => submission_params}, socket) do
-    uploaded_files =
-      consume_uploaded_entries(socket, :image, fn %{path: path}, _entry ->
-        dest = Path.join([:code.priv_dir(:art_store), "static", "uploads", Path.basename(path)])
-
-        # The `static/uploads` directory must exist for `File.cp!/2`
-        # and MyAppWeb.static_paths/0 should contain uploads to work,.
-        File.cp!(path, dest)
-        {:ok, "/uploads/" <> Path.basename(dest)}
-      end)
-
-    {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
-
     case socket.assigns.format_selected do
-      "link" ->
-        new_submission_params = Map.put(submission_params, "link", List.first(uploaded_files))
+      "image" ->
+        uploaded_files =
+          consume_uploaded_entries(socket, :image, fn %{path: path}, _entry ->
+            dest =
+              Path.join([
+                :code.priv_dir(:employee_management_system),
+                "static",
+                "uploads",
+                Path.basename(path)
+              ])
+
+            File.cp!(path, dest)
+            {:ok, "/uploads/" <> Path.basename(dest)}
+          end)
+
+        {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
+
+        new_submission_params = Map.put(submission_params, "image", List.first(uploaded_files))
+
         save_submission(socket, socket.assigns.action, new_submission_params)
 
       "pdf" ->
+        uploaded_files =
+          consume_uploaded_entries(socket, :pdf, fn %{path: path}, _entry ->
+            dest =
+              Path.join([
+                :code.priv_dir(:employee_management_system),
+                "static",
+                "uploads",
+                Path.basename(path)
+              ])
+
+            File.cp!(path, dest)
+            {:ok, "/uploads/" <> Path.basename(dest)}
+          end)
+
+        {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
+
         new_submission_params = Map.put(submission_params, "pdf", List.first(uploaded_files))
         save_submission(socket, socket.assigns.action, new_submission_params)
 
-      "link" ->
-        new_submission_params = Map.put(submission_params, "link", List.first(uploaded_files))
-        save_submission(socket, socket.assigns.action, new_submission_params)
+      _ ->
+        save_submission(socket, socket.assigns.action, submission_params)
     end
   end
 
@@ -71,7 +91,7 @@ defmodule EmployeeManagementSystemWeb.SubmissionLive.FormComponent do
     end
   end
 
-  defp save_submission(socket, :new, submission_params) do
+  defp save_submission(socket, :add_submission, submission_params) do
     case Submissions.create_submission(submission_params) do
       {:ok, _submission} ->
         {:noreply,

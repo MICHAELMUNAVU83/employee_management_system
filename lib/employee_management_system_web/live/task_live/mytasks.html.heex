@@ -172,6 +172,70 @@
                   </div>
                 </div>
 
+                <%= if task.submissions do %>
+                  <p class=" my-2 px-4 text-[#EFF2F7]">
+                    Submissions for this Task:
+                  </p>
+                <% else %>
+                  <p class=" my-2 px-4 text-[#EFF2F7]">
+                    No Submissions for this Task
+                  </p>
+                <% end %>
+                <div class="grid grid-cols-1 px-4 gap-4">
+                  <%= for submission <- task.submissions  do %>
+                    <div class="w-[100%] bg-[#37404A] flex poppins-regular flex-col justify-between gap-1 p-2 shadow-md hover:shadow-gray-300   cursor-pointer transition-all ease-in-out duration-500 h-[150px]">
+                      <div class="flex flex-col gap-1 w-[100%]">
+                        <div class="flex justify-between items-center">
+                          <p class="text-[#7269EF] uppercase text-xl">
+                            <%= submission.title %>
+                          </p>
+                        </div>
+                        <div class="text-[#EFF2F7] break-words text-xs">
+                          <%= submission.description %>
+                        </div>
+                        <p class="text-[#EFF2F7]">
+                          For this task , You submitted a <%= submission.type %>
+                        </p>
+                      </div>
+
+                      <div class="pb-2 flex justify-between w-[100%]">
+                        <%= if submission.type == "pdf" do %>
+                          <a
+                            href={submission.pdf}
+                            role="button"
+                            download={submission.title <> ".pdf"}
+                            class="bg-[#7269EF] text-white text-sm px-2 py-2 rounded-md"
+                          >
+                            Download PDF Submission
+                          </a>
+                        <% end %>
+
+                        <%= if submission.type == "image" do %>
+                          <a
+                            href={submission.image}
+                            role="button"
+                            download={submission.title <> ".png"}
+                            class="bg-[#7269EF] text-white text-sm px-2 py-2 rounded-md"
+                          >
+                            Download Image Submission
+                          </a>
+                        <% end %>
+
+                        <%= if submission.type == "link" do %>
+                          <a
+                            href={submission.link}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            class="bg-[#7269EF] text-white text-sm px-2 py-2 rounded-md"
+                          >
+                            Visit Link
+                          </a>
+                        <% end %>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+
                 <%= if task.reviews != [] do %>
                   <p class=" my-2 px-4 text-[#EFF2F7]">
                     Reviews
@@ -268,6 +332,20 @@
                       </p>
                     </div>
                   </div>
+                </div>
+
+                <%= if task.submissions do %>
+                  <p class=" my-2 px-4 text-[#EFF2F7]">
+                    Submissions for this Task
+                  </p>
+                <% else %>
+                  <p class=" my-2 px-4 text-[#EFF2F7]">
+                    No Submissions for this Task
+                  </p>
+                <% end %>
+                <div class="grid grid-cols-1 px-4 gap-4">
+                  <%= for submission <- task.submissions  do %>
+                  <% end %>
                 </div>
 
                 <%= if task.reviews != [] do %>

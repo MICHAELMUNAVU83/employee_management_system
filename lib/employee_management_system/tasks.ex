@@ -28,6 +28,7 @@ defmodule EmployeeManagementSystem.Tasks do
     )
     |> Repo.all()
     |> Repo.preload(:reviews)
+    |> Repo.preload(:submissions)
   end
 
   @doc """
