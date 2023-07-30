@@ -334,8 +334,8 @@
                 </div>
               </div>
 
-              <div class="flex flex-col md:flex-row justify-between items-center w-[100%]">
-                <div class="flex md:flex-row flex-col gap-4">
+              <div class="flex flex-row justify-between items-center w-[100%]">
+                <div class="flex md:flex-row items-center flex-col gap-4">
                   <div class="flex flex-row items-center">
                     <p class="py-2 text-[#EFF2F7] pr-2">
                       Due date:
@@ -362,7 +362,7 @@
                   </div>
                 </div>
 
-                <div class="flex md:justify-center justify-start mt-8 md:mt-0 items-center">
+                <div class="flex md:justify-center justify-start  md:mt-0 items-center">
                   <%= if task.status == "pending" do %>
                     <%= link(
               to: "#",
