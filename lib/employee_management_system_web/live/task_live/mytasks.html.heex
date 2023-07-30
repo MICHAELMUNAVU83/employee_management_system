@@ -142,7 +142,7 @@
                       <p class="py-2 text-[#EFF2F7] pr-2">
                         Due date:
                       </p>
-                      <p class="px-4 bg-[#7269EF] text-white text-sm py-2">
+                      <p class="px-4 bg-[#7269EF] text-white text-xs md:text-sm py-2">
                         <%= task.due_date %>
                       </p>
                     </div>
@@ -164,7 +164,7 @@
                     </div>
                     <div>
                       <%= live_patch(to: Routes.task_mytasks_path(@socket, :add_submission,  task.id)) do %>
-                        <button class="bg-[#7269EF] text-white text-sm px-2 py-2 rounded-md">
+                        <button class="bg-[#7269EF] text-white text-xs md:text-sm px-2 py-2 rounded-md">
                           Add Submission
                         </button>
                       <% end %>
