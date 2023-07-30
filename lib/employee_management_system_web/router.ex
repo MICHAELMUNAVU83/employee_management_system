@@ -25,12 +25,6 @@ defmodule EmployeeManagementSystemWeb.Router do
 
   scope "/", EmployeeManagementSystemWeb do
     pipe_through([:browser, :require_authenticated_user])
-    live("/messages", MessageLive.Index, :index)
-    live("/messages/new", MessageLive.Index, :new)
-    live("/messages/:id/edit", MessageLive.Index, :edit)
-
-    live("/messages/:id", MessageLive.Show, :show)
-    live("/messages/:id/show/edit", MessageLive.Show, :edit)
 
     live("/chats", ChatLive.Index, :index)
 
@@ -46,20 +40,6 @@ defmodule EmployeeManagementSystemWeb.Router do
     live("groups/:id/addgroupmember", GroupLive.Show, :addgroupmember)
     live("/groups/:id/show/edit", GroupLive.Show, :edit)
 
-    live("/group_members", GroupMemberLive.Index, :index)
-    live("/group_members/new", GroupMemberLive.Index, :new)
-    live("/group_members/:id/edit", GroupMemberLive.Index, :edit)
-
-    live("/group_members/:id", GroupMemberLive.Show, :show)
-    live("/group_members/:id/show/edit", GroupMemberLive.Show, :edit)
-
-    live("/group_messages", GroupMessageLive.Index, :index)
-    live("/group_messages/new", GroupMessageLive.Index, :new)
-    live("/group_messages/:id/edit", GroupMessageLive.Index, :edit)
-
-    live("/group_messages/:id", GroupMessageLive.Show, :show)
-    live("/group_messages/:id/show/edit", GroupMessageLive.Show, :edit)
-
     live("/tasks", TaskLive.Index, :index)
     live("/tasks/:id/newtask", TaskLive.Show, :newtask)
     live("/tasks/:id/:task_id/edit", TaskLive.Show, :edit)
@@ -74,24 +54,9 @@ defmodule EmployeeManagementSystemWeb.Router do
     live("/events/new", EventLive.Index, :new)
     live("/events/:id/edit", EventLive.Index, :edit)
 
-    live("/events/:id", EventLive.Show, :show)
-    live("/events/:id/show/edit", EventLive.Show, :edit)
-
     live("/submissions", SubmissionLive.Index, :index)
     live("/submissions/new", SubmissionLive.Index, :new)
     live("/submissions/:id/edit", SubmissionLive.Index, :edit)
-
-    live("/submissions/:id", SubmissionLive.Show, :show)
-    live("/submissions/:id/show/edit", SubmissionLive.Show, :edit)
-
-    # live "/reviews", ReviewLive.Index, :index
-    # live "/reviews/new", ReviewLive.Index, :new
-    # live "/reviews/:id/edit", ReviewLive.Index, :edit
-
-    # live "/reviews/:id", ReviewLive.Show, :show
-    # live "/reviews/:id/show/edit", ReviewLive.Show, :edit
-
-    # live "/tasks/:id/show/edit", TaskLive.Show, :edit
   end
 
   scope "/", EmployeeManagementSystemWeb do

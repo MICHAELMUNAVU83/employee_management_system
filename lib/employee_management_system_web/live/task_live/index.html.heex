@@ -30,12 +30,11 @@
         <% end %>
       </div>
       <%= if @current_user.role == "manager" do %>
-        <div class="hover:bg-[#3E4A56] transition-all duration-500 ease-in-out group p-4 cursor-pointer rounded-xl">
+        <div class="bg-[#3E4A56] transition-all duration-500 ease-in-out group p-4 cursor-pointer rounded-xl">
           <%= live_redirect(to: Routes.task_index_path(@socket, :index)) do %>
             <%= Heroicons.icon("briefcase",
               type: "solid",
-              class:
-                "h-8  text-[#A6B0CF] group-hover:text-[#7269EF] transition-all duration-500 ease-in-out rounded-xl w-8"
+              class: "h-8  text-[#7269EF] transition-all duration-500 ease-in-out rounded-xl w-8"
             ) %>
           <% end %>
         </div>
@@ -73,12 +72,12 @@
       <% end %>
       <%= if @current_user.email == "admin@gmail.com" do %>
         <div class="flex flex-col items-center justify-center gap-4">
-          <div class="bg-[#3E4A56] transition-all duration-500 ease-in-out group p-4 cursor-pointer rounded-xl">
+          <div class="hover:bg-[#3E4A56] transition-all duration-500 ease-in-out group p-4 cursor-pointer rounded-xl">
             <%= live_redirect(to: Routes.admin_panel_index_path(@socket, :index)) do %>
               <%= Heroicons.icon("building-library",
                 type: "solid",
                 class:
-                  "h-8  text-[#7269EF] transition-all duration-500 ease-in-out rounded-xl w-8"
+                  "h-8  text-[#A6B0CF] group-hover:text-[#7269EF] transition-all duration-500 ease-in-out rounded-xl w-8"
               ) %>
             <% end %>
           </div>
