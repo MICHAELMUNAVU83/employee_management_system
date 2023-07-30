@@ -12,29 +12,7 @@
     />
   </.modal>
 <% end %>
-<%!-- 
-<%= for user <- @users do %>
-  <%= live_redirect("Chat", to: Routes.chat_show_path(@socket, :show, user)) %>
-  <%= user.email %>
-  <div class="flex justify-end p-4 gap-2 items-center">
-    <%= user.email %>
 
-    <%= img_tag(
-      EmployeeManagementSystem.ProfilePhoto.url({user.photo, {user}},
-        signed: true
-      ),
-      class: "h-[50px] w-[50px] border-2 border-green-400 rounded-full  object-cover"
-    ) %>
-  </div>
-<% end %> --%>
-<%!-- Groups
-<%= for group <- @groups do %>
-  <%= group.name %>
-  <%= live_redirect("Show", to: Routes.group_show_path(@socket, :show, group)) %>
-<% end %>
---%>
-
-<%!-- <%= live_redirect("Create Group", to: Routes.chat_index_path(@socket, :newgroup)) %>  --%>
 <div class="flex justify-between poppins-regular h-[100vh]">
   <div class="md:w-1/12 w-2/12 bg-[#37404A] poppins-regular  h-[100vh] flex flex-col items-center justify-between py-8 ">
     <div class="p-4">
@@ -177,12 +155,10 @@
       <%= for user <- @first_4_users do %>
         <div class="bg-[#37404A] rounded-md h-[50px] relative w-[100%]">
           <div class="absolute left-1/2 w-[40px] h-[40px]  right-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
-            <%= img_tag(
-              EmployeeManagementSystem.ProfilePhoto.url({user.photo, {user}},
-                signed: true
-              ),
-              class: " w-[40px] object-cover h-[40px]  rounded-full "
-            ) %>
+             <%= Heroicons.icon("user",
+                    type: "solid",
+                    class: "w-[40px] h-[40px] text-white  object-cover bg-[#7269EF]   rounded-full"
+                  ) %>
           </div>
           <p class="absolute  text-xs   flex justify-center items-center bottom-2 left-1/2  right-1/2 transform translate-x-1/2 ">
             <%= user.first_name %>
@@ -196,12 +172,10 @@
           <div class="flex justify-between hover:bg-[#35404A] transition-all duration-500 ease-in-out p-4 cursor-pointer items-start w-[100%]">
             <div class="flex gap-2 items-start">
               <div class=" w-[40px] h-[40px]  ">
-                <%= img_tag(
-                  EmployeeManagementSystem.ProfilePhoto.url({user.photo, {user}},
-                    signed: true
-                  ),
-                  class: " w-[40px] h-[40px] object-cover  rounded-full "
-                ) %>
+                 <%= Heroicons.icon("user",
+                    type: "solid",
+                    class: "w-[40px] h-[40px] text-white  object-cover    rounded-full"
+                  ) %>
               </div>
 
               <div class="h-[24px] flex flex-col justify-between">
