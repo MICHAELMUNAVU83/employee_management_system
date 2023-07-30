@@ -10,6 +10,7 @@ defmodule EmployeeManagementSystemWeb.SubmissionLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(:format_selected, "")
      |> assign(:changeset, changeset)}
   end
 
@@ -20,7 +21,10 @@ defmodule EmployeeManagementSystemWeb.SubmissionLive.FormComponent do
       |> Submissions.change_submission(submission_params)
       |> Map.put(:action, :validate)
 
-    {:noreply, assign(socket, :changeset, changeset)}
+    {:noreply,
+     socket
+     |> assign(:changeset, changeset)
+     |> assign(:format_selected, submission_params["type"])}
   end
 
   def handle_event("save", %{"submission" => submission_params}, socket) do

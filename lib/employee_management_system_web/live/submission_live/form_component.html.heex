@@ -1,6 +1,4 @@
 <div>
-  <h2><%= @title %></h2>
-
   <.form
     let={f}
     for={@changeset}
@@ -9,32 +7,74 @@
     phx-change="validate"
     phx-submit="save"
   >
-    <%= label(f, :title) %>
-    <%= text_input(f, :title) %>
-    <%= error_tag(f, :title) %>
+    <p class="text-[#7269EF] text-center text-xl poppins-regular">
+      Add A submission for this task
+    </p>
+    <div class="flex flex-col my-8 w-[70%] gap-2 mx-auto">
+      <div>
+        <%= label(f, :title, class: "text-[#eff2f7] poppins-regular") %>
+        <%= text_input(f, :title,
+          class:
+            "w-[100%] h-[45px] bg-[#eff2f7] poppins-regular text-[#37404A] border border-transparent   focus:ring-0 border-none"
+        ) %>
+        <p class="pt-5">
+          <%= error_tag(f, :title) %>
+        </p>
+      </div>
 
-    <%= label(f, :description) %>
-    <%= text_input(f, :description) %>
-    <%= error_tag(f, :description) %>
+      <div>
+        <%= label(f, :description, class: "text-[#eff2f7] poppins-regular") %>
+        <%= textarea(f, :description,
+          class:
+            "w-[100%] h-[100px] bg-[#eff2f7] poppins-regular text-[#37404A] border border-transparent   focus:ring-0 border-none"
+        ) %>
+        <p class="pt-5">
+          <%= error_tag(f, :description) %>
+        </p>
+      </div>
+      <div>
+        <%= label(f, :type, class: "text-[#eff2f7] poppins-regular") %>
+        <%= select(f, :type, ["link", "pdf", "image"],
+          prompt: "Select a format for your submission",
+          class:
+            "w-[100%] h-[45px] bg-[#eff2f7] poppins-regular text-[#37404A] border border-transparent   focus:ring-0 border-none"
+        ) %>
+        <%= error_tag(f, :type) %>
+      </div>
 
-    <%= label(f, :type) %>
-    <%= text_input(f, :type) %>
-    <%= error_tag(f, :type) %>
+      <%= if @format_selected != "" do %>
+        <%= if @format_selected == "image" do %>
+          <%= label(f, :image) %>
+          <%= text_input(f, :image) %>
+          <%= error_tag(f, :image) %>
+        <% end %>
 
-    <%= label(f, :image) %>
-    <%= text_input(f, :image) %>
-    <%= error_tag(f, :image) %>
+        <%= if @format_selected == "pdf" do %>
+          <%= label(f, :pdf) %>
+          <%= text_input(f, :pdf) %>
+          <%= error_tag(f, :pdf) %>
+        <% end %>
+        <%= if @format_selected == "link" do %>
+          <p class="text-[#eff2f7] poppins-regular">
+            Add a link to the work you have done
+          </p>
+          <%= text_input(f, :link,
+            class:
+              "w-[100%] h-[50px] bg-[#eff2f7] poppins-regular text-[#37404A] border border-transparent   focus:ring-0 border-none"
+          ) %>
+          <p class="pt-5">
+            <%= error_tag(f, :link) %>
+          </p>
+        <% end %>
+      <% end %>
 
-    <%= label(f, :pdf) %>
-    <%= text_input(f, :pdf) %>
-    <%= error_tag(f, :pdf) %>
-
-    <%= label(f, :link) %>
-    <%= text_input(f, :link) %>
-    <%= error_tag(f, :link) %>
-
-    <div>
-      <%= submit("Save", phx_disable_with: "Saving...") %>
+      <div class="flex justify-center items-center">
+        <%= submit("Save",
+          phx_disable_with: "Saving...",
+          class:
+            "bg-[#7269EF]  px-4 py-2 text-[#eff2f7] text-xl hover:scale-105 transition-all ease-in-out duration-500 poppins-regular cursor-pointer"
+        ) %>
+      </div>
     </div>
   </.form>
 </div>

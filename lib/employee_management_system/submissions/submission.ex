@@ -20,5 +20,6 @@ defmodule EmployeeManagementSystem.Submissions.Submission do
     submission
     |> cast(attrs, [:title, :description, :type, :image, :pdf, :link, :task_id])
     |> validate_required([:title, :description, :type, :image, :pdf, :link, :task_id])
+    |> validate_format(:link, ~r/https:\/\//, message: "must start with 'https://'")
   end
 end
