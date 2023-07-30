@@ -252,7 +252,7 @@
       <% end %>
     </div>
   </div>
-  <div class="md:w-7/12 w-10/12 bg-[#262E35]   overflow-y-scroll h-[100vh] flex flex-col">
+  <div class="md:w-7/12 w-10/12 bg-[#262E35]   overflow-hidden h-[100vh] flex flex-col">
     <div class="bg-[#262E35] border-gray-200 border-b-4 flex justify-between items-center  p-4  h-[10%] W-[100%]">
       <div class="flex gap-2 items-center">
         <div class="h-[48px] w-[48px] bg-[#2E2A60] text-xl text-[#7269EF] flex justify-center items-center uppercase poppins-bold rounded-full">
@@ -372,7 +372,7 @@
         </div>
       <% end %>
     </div>
-    <div class="bg-[#262E35] h-[80%] flex items-end p-4 overflow-hidden w-[100%]">
+    <div class="bg-[#262E35] h-[80%] flex flex-col-reverse p-4 overflow-y-scroll w-[100%]">
       <div class="flex flex-col w-[100%] gap-2">
         <%= for message <- @group_messages do %>
           <%= if message.user_id == @current_user.id do %>
