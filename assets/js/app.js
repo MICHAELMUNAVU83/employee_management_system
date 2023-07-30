@@ -49,6 +49,7 @@ Hooks.Navbar = {
     });
   },
 };
+
 // connect if there are any LiveViews on the page
 let liveSocket = new LiveSocket("/live", Socket, {
   hooks: Hooks,
