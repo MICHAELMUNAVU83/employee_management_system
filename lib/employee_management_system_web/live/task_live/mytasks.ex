@@ -48,7 +48,7 @@ defmodule EmployeeManagementSystemWeb.TaskLive.Mytasks do
         %Task{}
       end
 
-    task_submission_for = String.to_integer(params["id"])
+    task_submission_for = params["task_id"]
 
     IO.inspect(task_submission_for)
 

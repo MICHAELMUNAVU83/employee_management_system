@@ -165,7 +165,7 @@
                         </p>
                       </div>
                       <div>
-                        <%= live_patch(to: Routes.task_mytasks_path(@socket, :add_submission,  task.id)) do %>
+                        <%= live_patch(to: Routes.task_mytasks_path(@socket, :add_submission,  @current_user , task.id)) do %>
                           <button class="bg-[#7269EF] text-white text-xs md:text-sm px-2 py-2 rounded-md">
                             Add Submission
                           </button>
@@ -237,7 +237,7 @@
                           </div>
 
                           <div class="flex gap-2 items-center">
-                            <%= live_patch(to: Routes.task_mytasks_path(@socket, :edit_submission,  submission.task_id , submission.id)) do %>
+                            <%= live_patch(to: Routes.task_mytasks_path(@socket, :edit_submission, @current_user , submission.task_id , submission.id)) do %>
                               <%= Heroicons.icon("pencil",
                                 type: "solid",
                                 class: "h-6 text-white w-6"
