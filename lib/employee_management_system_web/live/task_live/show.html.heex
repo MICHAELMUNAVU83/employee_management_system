@@ -229,10 +229,10 @@
           <div class="flex justify-between hover:bg-[#35404A] transition-all duration-500 ease-in-out p-4 cursor-pointer items-start w-[100%]">
             <div class="flex gap-2 items-start">
               <div class=" w-[40px] h-[40px]  ">
-               <%= Heroicons.icon("user",
-                    type: "solid",
-                    class: "w-[40px] h-[px]  text-white  object-cover bg-[#7269EF]   rounded-full"
-                  ) %>
+                <%= Heroicons.icon("user",
+                  type: "solid",
+                  class: "w-[40px] h-[px]  text-white  object-cover bg-[#7269EF]   rounded-full"
+                ) %>
               </div>
 
               <div class="h-[24px] flex flex-col justify-between">
@@ -267,9 +267,10 @@
       <div class="flex gap-2 items-center">
         <div class=" w-[40px] h-[40px]  ">
           <%= Heroicons.icon("user",
-                    type: "solid",
-                    class: "md:w-[32px] w-[16px] md:h-[32px] h-[16px]  text-white  object-cover bg-[#7269EF]   rounded-full"
-                  ) %>
+            type: "solid",
+            class:
+              "md:w-[32px] w-[16px] md:h-[32px] h-[16px]  text-white  object-cover bg-[#7269EF]   rounded-full"
+          ) %>
         </div>
         <p class="text-white text-sm poppins-regular">
           <%= @user.first_name <> " " <> @user.last_name %>

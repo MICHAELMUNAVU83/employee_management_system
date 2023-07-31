@@ -22,6 +22,15 @@ defmodule EmployeeManagementSystemWeb.TaskLive.Mytasks do
   def handle_params(params, _, socket) do
     tasks = Tasks.list_tasks_for_user(socket.assigns.current_user.id)
 
+    page_for_logged_in_user =
+      if socket.assigns.current_user.id == String.to_integer(params["id"]) do
+        true
+      else
+        false
+      end
+
+    IO.inspect(page_for_logged_in_user)
+
     IO.inspect(params)
 
     pending_tasks =
@@ -57,6 +66,7 @@ defmodule EmployeeManagementSystemWeb.TaskLive.Mytasks do
      |> assign(:tasks, tasks)
      |> assign(:pending_tasks, pending_tasks)
      |> assign(:completed_tasks, completed_tasks)
+     |> assign(:page_for_logged_in_user, page_for_logged_in_user)
      |> assign(:submission, submission)
      |> assign(:task_submission_for, task_submission_for)
      |> assign(:task_changeset, Tasks.change_task(%Task{}))
