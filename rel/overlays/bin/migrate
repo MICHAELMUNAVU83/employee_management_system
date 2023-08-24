@@ -1,0 +1,3 @@
+#!/bin/sh
+cd -P -- "$(dirname -- "$0")"
+exec ./engage-pro eval TruckExpenseSystem.Release.migrate
