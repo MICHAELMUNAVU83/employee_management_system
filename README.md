@@ -17,12 +17,11 @@ Managers can also create groups for different departments and assign employees t
 Tasks can also be assigned and reviewed in the system .
 
 ## Screenshots
-![Screenshot 2023-08-24 at 09 12 02](https://github.com/MICHAELMUNAVU83/truck_expense_system/assets/86654131/83859fdc-a6b0-4632-8680-78f5d8bdf72b)
 
 
 
-https://github.com/MICHAELMUNAVU83/truck_expense_system/assets/86654131/dd0ad079-3a68-4ead-baba-786ecf2ebc5b
 
+https://github.com/MICHAELMUNAVU83/employee_management_system/assets/86654131/8fb3a3ed-ee60-464c-9ccf-14f694d30168
 
 
 
