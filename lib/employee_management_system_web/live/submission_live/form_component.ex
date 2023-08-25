@@ -19,7 +19,9 @@ defmodule EmployeeManagementSystemWeb.SubmissionLive.FormComponent do
 
   @impl true
   def handle_event("validate", %{"submission" => submission_params}, socket) do
+
     IO.inspect(submission_params)
+
 
     changeset =
       socket.assigns.submission
