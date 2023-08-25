@@ -117,11 +117,9 @@
     <div class="bg-[rgb(38,46,53)] border-gray-200 border-b-2 flex justify-between items-center  p-4  h-[10%] W-[100%]">
       <div class="flex gap-2 items-center">
         <div class=" w-[40px] h-[40px]  ">
-          <%= img_tag(
-            EmployeeManagementSystem.ProfilePhoto.url({@current_user.photo, {@current_user}},
-              signed: true
-            ),
-            class: " w-[40px] h-[40px] object-cover  rounded-full "
+          <%= Heroicons.icon("user",
+            type: "solid",
+            class: "w-[40px] h-[40px]  text-white  object-cover bg-[#7269EF]   rounded-full"
           ) %>
         </div>
         <p class="text-white text-sm poppins-regular">

@@ -1,14 +1,11 @@
-# fly.toml app configuration file generated for truckexpensesystem on 2023-08-21T06:38:39-07:00
+# fly.toml app configuration file generated for engage-pro on 2023-07-30T16:37:24+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = "engage-pro"
-primary_region = "lax"
+primary_region = "jnb"
 kill_signal = "SIGTERM"
-swap_size_mb = 512
-
-[build]
 
 [deploy]
   release_command = "/app/bin/migrate"

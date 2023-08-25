@@ -1,1 +1,1 @@
-call "%~dp0\engage-pro" eval TruckExpenseSystem.Release.migrate
+call "%~dp0\employee_management_system" eval EmployeeManagementSystem.Release.migrate

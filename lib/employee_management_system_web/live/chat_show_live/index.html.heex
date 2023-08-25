@@ -147,11 +147,9 @@
       <%= for user <- @first_4_users do %>
         <div class="bg-[#37404A] rounded-md h-[50px] relative w-[100%]">
           <div class="absolute left-1/2 w-[40px] h-[40px]  right-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
-            <%= img_tag(
-              EmployeeManagementSystem.ProfilePhoto.url({user.photo, {user}},
-                signed: true
-              ),
-              class: " w-[40px] object-cover h-[40px]  rounded-full "
+            <%= Heroicons.icon("user",
+              type: "solid",
+              class: "w-[40px] h-[40px] object-cover bg-[#7269EF]  rounded-full"
             ) %>
           </div>
           <p class="absolute  text-xs   flex justify-center items-center bottom-2 left-1/2  right-1/2 transform translate-x-1/2 ">
@@ -167,11 +165,9 @@
             <div class="flex justify-between bg-[#35404A] transition-all duration-500 ease-in-out p-4 cursor-pointer items-start w-[100%]">
               <div class="flex gap-2 items-start">
                 <div class=" w-[40px] h-[40px]  ">
-                  <%= img_tag(
-                    EmployeeManagementSystem.ProfilePhoto.url({user.photo, {user}},
-                      signed: true
-                    ),
-                    class: " w-[40px] h-[40px] object-cover  rounded-full "
+                  <%= Heroicons.icon("user",
+                    type: "solid",
+                    class: "w-[40px] h-[40px] object-cover  rounded-full"
                   ) %>
                 </div>
 
@@ -210,11 +206,9 @@
             <div class="flex justify-between hover:bg-[#35404A] transition-all duration-500 ease-in-out p-4 cursor-pointer items-start w-[100%]">
               <div class="flex gap-2 items-start">
                 <div class=" w-[40px] h-[40px]  ">
-                  <%= img_tag(
-                    EmployeeManagementSystem.ProfilePhoto.url({user.photo, {user}},
-                      signed: true
-                    ),
-                    class: " w-[40px] h-[40px] object-cover  rounded-full "
+                  <%= Heroicons.icon("user",
+                    type: "solid",
+                    class: "w-[40px] h-[40px] object-cover  rounded-full"
                   ) %>
                 </div>
 
@@ -259,11 +253,9 @@
     <div class="bg-[#262E35] border-gray-200 border-b-2 flex justify-between items-center  p-4  h-[10%] w-[100%]">
       <div class="flex gap-2 items-center">
         <div class=" w-[40px] h-[40px]  ">
-          <%= img_tag(
-            EmployeeManagementSystem.ProfilePhoto.url({@user.photo, {@user}},
-              signed: true
-            ),
-            class: " w-[40px] h-[40px] object-cover  rounded-full "
+          <%= Heroicons.icon("user",
+            type: "solid",
+            class: "w-[40px] h-[40px] text-white object-cover  rounded-full"
           ) %>
         </div>
         <p class="text-white text-sm poppins-regular">
@@ -285,13 +277,10 @@
                   </p>
                 </div>
                 <div class=" md:w-[32px] md:h-[32px] h-[16px] w-[16px]  ">
-                  <%= img_tag(
-                    EmployeeManagementSystem.ProfilePhoto.url(
-                      {@current_user.photo, {@current_user}},
-                      signed: true
-                    ),
+                  <%= Heroicons.icon("user",
+                    type: "solid",
                     class:
-                      " md:w-[32px] md:h-[32px] w-[16px] h-[16px] object-cover  rounded-full "
+                      "md:w-[32px] md:h-[32px] h-[16px] w-[16px] text-white  object-cover bg-[#7269EF]   rounded-full"
                   ) %>
                 </div>
               </div>
@@ -300,13 +289,10 @@
             <div class="flex  justify-start text-white">
               <div class="flex items-end gap-2">
                 <div class=" md:w-[32px] md:h-[32px] h-[16px] w-[16px]  ">
-                  <%= img_tag(
-                    EmployeeManagementSystem.ProfilePhoto.url(
-                      {@user.photo, {@user}},
-                      signed: true
-                    ),
+                  <%= Heroicons.icon("user",
+                    type: "solid",
                     class:
-                      " md:w-[32px] md:h-[32px] h-[16px] w-[16px] object-cover  rounded-full "
+                      "md:w-[32px] md:h-[32px] h-[16px] w-[16px] text-white  object-cover    rounded-full"
                   ) %>
                 </div>
                 <div class=" flex flex-col justify-between">
