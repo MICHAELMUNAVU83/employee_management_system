@@ -383,24 +383,30 @@
                     <%= message.text %>
                   </p>
                 </div>
-                <div class="  md:w-[32px] md:h-[32px] h-[16px] w-[16px] ">
+                <div class="  flex flex-col gap-2 justify-center items-center ">
                   <%= Heroicons.icon("user",
                     type: "solid",
                     class:
                       "md:w-[32px] w-[16px] md:h-[32px] h-[16px]  text-white  object-cover bg-[#7269EF]   rounded-full"
                   ) %>
+                  <p class="text-xs">
+                  <%= message.user.first_name %>
+                  </p>
                 </div>
               </div>
             </div>
           <% else %>
             <div class="flex  justify-start text-white">
-              <div class="flex items-end gap-2">
+              <div class="flex flex-col gap-2 justify-center items-center">
                 <div class=" md:w-[32px] md:h-[32px] h-[16px] w-[16px]  ">
                   <%= Heroicons.icon("user",
                     type: "solid",
                     class:
                       "md:w-[32px] w-[16px] md:h-[32px] h-[16px]  text-white  object-cover   rounded-full"
                   ) %>
+                   <p class="text-xs">
+                  <%= message.user.first_name %>
+                  </p>
                 </div>
                 <div class=" flex flex-col justify-between">
                   <p class="  bg-[#7269EF] md:h-[70px] text-xs p-4 w-[200px] md:w-[300px]">
