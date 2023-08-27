@@ -12,6 +12,7 @@ defmodule EmployeeManagementSystemWeb.EventLive.FormComponent do
      |> assign(assigns)
      |> assign(:changeset, changeset)
      |> assign(:uploaded_files, [])
+     |> assign(:date_error, "")
      |> allow_upload(:event_image, accept: ~w(.jpg .png .jpeg .pdf), max_entries: 1)}
   end
 
@@ -53,28 +54,82 @@ defmodule EmployeeManagementSystemWeb.EventLive.FormComponent do
   end
 
   defp save_event(socket, :edit, event_params) do
-    case Events.update_event(socket.assigns.event, event_params) do
-      {:ok, _event} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, "Event updated successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+    today = Timex.today()
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, :changeset, changeset)}
+    {_ok, todays_date} = Timex.format(today, "{YYYY}-{M}-{D}")
+
+    todays_date =
+      todays_date
+      |> String.split("-")
+      |> Enum.map(&String.to_integer(&1))
+      |> Enum.map_join("", &Integer.to_string(&1))
+      |> String.to_integer()
+
+    event_date =
+      event_params["date"]
+      |> String.split("-")
+      |> Enum.map(&String.to_integer(&1))
+      |> Enum.map_join("", &Integer.to_string(&1))
+      |> String.to_integer()
+
+    IO.inspect(event_date)
+    IO.inspect(todays_date)
+
+    if event_date < todays_date do
+      {:noreply,
+       socket
+       |> assign(:date_error, "Date must be in the future")}
+    else
+      case Events.update_event(socket.assigns.event, event_params) do
+        {:ok, _event} ->
+          {:noreply,
+           socket
+           |> put_flash(:info, "Event updated successfully")
+           |> push_redirect(to: socket.assigns.return_to)}
+
+        {:error, %Ecto.Changeset{} = changeset} ->
+          {:noreply, assign(socket, :changeset, changeset)}
+      end
     end
   end
 
   defp save_event(socket, :new, event_params) do
-    case Events.create_event(event_params) do
-      {:ok, _event} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, "Event created successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+    today = Timex.today()
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, changeset: changeset)}
+    {_ok, todays_date} = Timex.format(today, "{YYYY}-{M}-{D}")
+
+    todays_date =
+      todays_date
+      |> String.split("-")
+      |> Enum.map(&String.to_integer(&1))
+      |> Enum.map_join("", &Integer.to_string(&1))
+      |> String.to_integer()
+
+    event_date =
+      event_params["date"]
+      |> String.split("-")
+      |> Enum.map(&String.to_integer(&1))
+      |> Enum.map_join("", &Integer.to_string(&1))
+      |> String.to_integer()
+
+    IO.inspect(event_date)
+    IO.inspect(todays_date)
+
+    if event_date < todays_date do
+      {:noreply,
+       socket
+       |> assign(:date_error, "Date must be in the future")}
+    else
+      case Events.create_event(event_params) do
+        {:ok, _event} ->
+          {:noreply,
+           socket
+           |> put_flash(:info, "Event created successfully")
+           |> push_redirect(to: socket.assigns.return_to)}
+
+        {:error, %Ecto.Changeset{} = changeset} ->
+          {:noreply, assign(socket, changeset: changeset)}
+      end
     end
   end
 end

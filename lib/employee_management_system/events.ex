@@ -21,6 +21,14 @@ defmodule EmployeeManagementSystem.Events do
     Repo.all(Event)
   end
 
+  def get_event_date_string(date) do
+    date
+    |> String.split("-")
+    |> Enum.map(&String.to_integer(&1))
+    |> Enum.map_join("", &Integer.to_string(&1))
+    |> String.to_integer()
+  end
+
   @doc """
   Gets a single event.
 

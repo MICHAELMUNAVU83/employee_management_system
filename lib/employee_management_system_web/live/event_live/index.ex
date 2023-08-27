@@ -8,10 +8,21 @@ defmodule EmployeeManagementSystemWeb.EventLive.Index do
   @impl true
   def mount(_params, session, socket) do
     user = Users.get_user_by_session_token(session["user_token"])
+    today = Timex.today()
+
+    {_ok, todays_date} = Timex.format(today, "{YYYY}-{M}-{D}")
+
+    todays_date =
+      todays_date
+      |> String.split("-")
+      |> Enum.map(&String.to_integer(&1))
+      |> Enum.map_join("", &Integer.to_string(&1))
+      |> String.to_integer()
 
     {:ok,
      socket
      |> assign(:page_title, "Listing Events")
+     |> assign(:todays_date, todays_date)
      |> assign(:current_user, user)
      |> assign(:events, Events.list_events())}
   end

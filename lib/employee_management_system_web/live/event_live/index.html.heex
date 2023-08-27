@@ -139,55 +139,107 @@
     </div>
     <div class="h-[90%] overflow-y-scroll  md:grid grid-cols-2 gap-8 p-4">
       <%= for event <- @events do %>
-        <div class=" p-4 h-[220px] rounded-md bg-[#303841]">
-          <div class="w-[100%] bg-[#37404A] flex poppins-regular flex-col justify-between gap-1 p-2 shadow-md hover:shadow-gray-300   cursor-pointer transition-all ease-in-out duration-500 md:h-[170px]">
-            <div class="flex flex-row justify-between gap-1 w-[100%]">
-              <div class="flex flex-col">
-                <div class="flex  w-[100%] items-center">
-                  <p class="text-[#7269EF] uppercase text-xl">
-                    <%= event.name %>
-                  </p>
-                </div>
-                <div class="text-[#EFF2F7] flex gap-2 break-words ">
-                  <p text-[#7269EF]>
-                    Date :
-                  </p>
-                  <p>
-                    <%= event.date %>
-                  </p>
-                </div>
-                <div class="text-[#EFF2F7] break-words text-sm">
-                  <%= event.description %>
-                </div>
-                <%= if @current_user.role == "manager" do %>
-                  <div class="flex gap-2 items-end mt-4 ">
-                    <%= live_patch(to: Routes.event_index_path(@socket, :edit, event)) do %>
-                      <%= Heroicons.icon("pencil",
-                        type: "solid",
-                        class: "h-6 text-white w-6"
-                      ) %>
-                    <% end %>
+        <%= if  EmployeeManagementSystem.Events.get_event_date_string(event.date) >  @todays_date do %>
+          <div class=" p-4 h-[220px] rounded-md bg-[#303841]">
+            <div class="w-[100%] bg-[#37404A] flex poppins-regular flex-col justify-between gap-1 p-2 shadow-md hover:shadow-gray-300   cursor-pointer transition-all ease-in-out duration-500 md:h-[170px]">
+              <div class="flex flex-row justify-between gap-1 w-[100%]">
+                <div class="flex flex-col">
+                  <div class="flex  w-[100%] items-center">
+                    <p class="text-[#7269EF] uppercase text-xl">
+                      <%= event.name %>
+                    </p>
+                  </div>
+                  <div class="text-[#EFF2F7] flex gap-2 break-words ">
+                    <p text-[#7269EF]>
+                      Date :
+                    </p>
+                    <p>
+                      <%= event.date %>
+                    </p>
+                  </div>
+                  <div class="text-[#EFF2F7] break-words text-sm">
+                    <%= event.description %>
+                  </div>
+                  <%= if @current_user.role == "manager" do %>
+                    <div class="flex gap-2 items-end mt-4 ">
+                      <%= live_patch(to: Routes.event_index_path(@socket, :edit, event)) do %>
+                        <%= Heroicons.icon("pencil",
+                          type: "solid",
+                          class: "h-6 text-white w-6"
+                        ) %>
+                      <% end %>
 
-                    <%= link(
+                      <%= link(
                     to: "#",
                     phx_click: "delete",
                     phx_value_id: event.id,
                     data: [confirm: "Are you sure?"]
                   ) do %>
-                      <%= Heroicons.icon("trash",
-                        type: "solid",
-                        class: "h-6 text-white w-6"
-                      ) %>
-                    <% end %>
-                  </div>
-                <% end %>
-              </div>
-              <div>
-                <img src={event.image} class="w-[150px] h-[150px] rounded-md object-cover " />
+                        <%= Heroicons.icon("trash",
+                          type: "solid",
+                          class: "h-6 text-white w-6"
+                        ) %>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+                <div>
+                  <img src={event.image} class="w-[150px] h-[150px] rounded-md object-cover " />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        <% else %>
+          <div class=" p-4 h-[220px] rounded-md bg-gray-500">
+            <div class="w-[100%] bg-[#37404A] flex poppins-regular flex-col justify-between gap-1 p-2 shadow-md hover:shadow-gray-300   cursor-pointer transition-all ease-in-out duration-500 md:h-[170px]">
+              <div class="flex flex-row justify-between gap-1 w-[100%]">
+                <div class="flex flex-col">
+                  <div class="flex  w-[100%] items-center">
+                    <p class="text-[#7269EF] uppercase text-xl">
+                      <%= event.name %>
+                    </p>
+                  </div>
+                  <div class="text-[#EFF2F7] flex gap-2 break-words ">
+                    <p text-[#7269EF]>
+                      Date :
+                    </p>
+                    <p>
+                      <%= event.date %>
+                    </p>
+                  </div>
+                  <div class="text-[#EFF2F7] break-words text-sm">
+                    <%= event.description %>
+                  </div>
+                  <%= if @current_user.role == "manager" do %>
+                    <div class="flex gap-2 items-end mt-4 ">
+                      <%= live_patch(to: Routes.event_index_path(@socket, :edit, event)) do %>
+                        <%= Heroicons.icon("pencil",
+                          type: "solid",
+                          class: "h-6 text-white w-6"
+                        ) %>
+                      <% end %>
+
+                      <%= link(
+                    to: "#",
+                    phx_click: "delete",
+                    phx_value_id: event.id,
+                    data: [confirm: "Are you sure?"]
+                  ) do %>
+                        <%= Heroicons.icon("trash",
+                          type: "solid",
+                          class: "h-6 text-white w-6"
+                        ) %>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+                <div>
+                  <img src={event.image} class="w-[150px] h-[150px] rounded-md object-cover " />
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

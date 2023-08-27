@@ -43,6 +43,9 @@
         <p class="pt-5">
           <%= error_tag(f, :date) %>
         </p>
+        <p class="text-red-500 text-sm poppins-regular">
+          <%= @date_error %>
+        </p>
       </div>
 
       <%= label(f, :image, class: "text-[#eff2f7] poppins-regular") %>
